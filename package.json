@@ -17,17 +17,6 @@
 			"pre-commit": "lint-staged"
 		}
 	},
-	"lint-staged": {
-		"*.{ts,tsx,js}": [
-			"eslint --config .eslintrc.js"
-		],
-		"*.{css,less,scss}": [
-			"stylelint --config .stylelintrc.js"
-		],
-		"*.{ts,tsx,js,json,html,yml,css,less,scss,md}": [
-			"prettier --write"
-		]
-	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.4.0",
 		"@typescript-eslint/parser": "7.2.0",
