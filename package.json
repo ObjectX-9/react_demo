@@ -7,6 +7,7 @@
 	"license": "MIT",
 	"private": false,
 	"scripts": {
+		"commit": "git-cz",
 		"prepare": "husky install",
 		"lint": "npm run lint-eslint && npm run lint-stylelint",
 		"lint-eslint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js src",
@@ -23,6 +24,10 @@
 		"@commitlint/config-conventional": "19.1.0",
 		"@typescript-eslint/eslint-plugin": "^6.4.0",
 		"@typescript-eslint/parser": "7.2.0",
+		"commitizen": "^4.3.0",
+		"commitlint-config-cz": "^0.13.3",
+		"cz-conventional-changelog": "^3.3.0",
+		"cz-customizable": "^7.0.0",
 		"eslint": "^8.0.1",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-config-standard-with-typescript": "^43.0.1",
@@ -40,5 +45,10 @@
 		"stylelint-declaration-block-no-ignored-properties": "2.8.0",
 		"stylelint-prettier": "5.0.0",
 		"typescript": "*"
+	},
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-customizable"
+		}
 	}
 }
