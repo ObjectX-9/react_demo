@@ -1,0 +1,25 @@
+# EditorConfig 文件示例
+
+# 表示这是项目根目录下的顶级 .editorconfig 文件，编辑器在查找配置时会停止向上查找
+root = true
+
+# 匹配所有文件
+[*]
+# 使用 Unix 风格的换行符
+end_of_line = lf
+# 文件末尾会插入一个空行
+insert_final_newline = true
+# 使用制表符缩进
+indent_style = tab
+# 字符编码
+charset = utf-8
+# 去除行末多余空格
+trim_trailing_whitespace = true
+# 匹配 JavaScript 文件
+[*.js]
+
+
+# 匹配 Markdown 文件
+[*.md]
+# 使用制表符缩进
+indent_style = tab
