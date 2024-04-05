@@ -26,6 +26,7 @@
 		"@typescript-eslint/parser": "7.2.0",
 		"commitizen": "^4.3.0",
 		"commitlint-config-cz": "^0.13.3",
+		"conventional-changelog-cli": "4.1.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"cz-customizable": "^7.0.0",
 		"eslint": "^8.0.1",
