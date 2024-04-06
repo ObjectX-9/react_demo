@@ -6,13 +6,21 @@
 	"author": "xxx",
 	"license": "MIT",
 	"private": false,
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"ie >= 9",
+		"not op_mini all"
+	],
 	"scripts": {
 		"commit": "git-cz",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"prepare": "husky install",
 		"lint": "npm run lint-eslint && npm run lint-stylelint",
 		"lint-eslint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js src",
-		"lint-stylelint": "stylelint --config .stylelintrc.js src/**/*.{less,css,scss}"
+		"lint-stylelint": "stylelint --config .stylelintrc.js src/**/*.{less,css,scss}",
+		"start": "cross-env NODE_ENV=development webpack-dev-server --config ./scripts/config/webpack.dev.js",
+		"build": "cross-env NODE_ENV=production webpack --config ./scripts/config/webpack.prod.js"
 	},
 	"husky": {
 		"hooks": {
@@ -25,9 +33,13 @@
 		"@commitlint/config-conventional": "19.1.0",
 		"@typescript-eslint/eslint-plugin": "^6.4.0",
 		"@typescript-eslint/parser": "7.2.0",
+		"autoprefixer": "10.4.18",
+		"clean-webpack-plugin": "4.0.0",
 		"commitizen": "^4.3.0",
 		"commitlint-config-cz": "^0.13.3",
 		"conventional-changelog-cli": "4.1.0",
+		"cross-env": "7.0.3",
+		"css-loader": "6.10.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"cz-customizable": "^7.0.0",
 		"eslint": "^8.0.1",
@@ -37,16 +49,31 @@
 		"eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
 		"eslint-plugin-promise": "^6.0.0",
 		"eslint-plugin-react": "^7.34.1",
+		"html-webpack-plugin": "5.6.0",
 		"husky": "9.0.11",
+		"less": "4.2.0",
+		"less-loader": "12.2.0",
 		"lint-staged": "15.2.2",
+		"node-sass": "9.0.0",
+		"postcss": "8.4.35",
+		"postcss-flexbugs-fixes": "5.0.2",
+		"postcss-loader": "8.1.1",
+		"postcss-normalize": "10.0.1",
+		"postcss-preset-env": "9.5.1",
 		"prettier": "3.2.5",
+		"sass-loader": "14.1.1",
+		"style-loader": "3.3.4",
 		"stylelint": "16.2.1",
 		"stylelint-config-prettier": "9.0.5",
 		"stylelint-config-rational-order": "0.1.2",
 		"stylelint-config-standard": "36.0.0",
 		"stylelint-declaration-block-no-ignored-properties": "2.8.0",
 		"stylelint-prettier": "5.0.0",
-		"typescript": "*"
+		"typescript": "*",
+		"webpack": "5.90.3",
+		"webpack-cli": "5.1.4",
+		"webpack-dev-server": "5.0.3",
+		"webpack-merge": "5.10.0"
 	},
 	"config": {
 		"commitizen": {
