@@ -1,11 +1,11 @@
 import React from 'react';
 import img from '../javascript.png';
-import Header from '@components/Header';
 import './app.scss';
+import {Button} from '@components/Button/Button';
 function App() {
 	return (
 		<>
-			<Header></Header>
+			<Button label='Button' onClick={() => {}} primary />
 			<div className='App'>React18 + Ts5 + webpack5 开发模板搭建</div>;
 			<img src={img}></img>
 		</>
