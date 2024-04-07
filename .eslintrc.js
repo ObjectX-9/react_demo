@@ -8,7 +8,12 @@ module.exports = {
 		es2021: true,
 		node: true,
 	},
-	extends: ['standard-with-typescript', 'plugin:react/recommended', 'prettier'],
+	extends: [
+        "standard-with-typescript",
+        "plugin:react/recommended",
+        "prettier",
+        "plugin:storybook/recommended"
+    ],
 	settings: {
 		'react': {
 			'version': 'detect', // 自动检测 React 版本
