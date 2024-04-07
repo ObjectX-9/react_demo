@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './style/index.module.less';
 
-interface ButtonProps {
+export interface ButtonProps {
 	/**
 	 * Is this the principal call to action on the page?
 	 */
