@@ -1,6 +1,6 @@
 {
 	"name": "react_comp_template",
-	"version": "1.0.1",
+	"version": "1.0.0",
 	"description": "a lint demo ",
 	"main": "./dist/cjs/index.js",
 	"module": "./dist/esm/index.js",
