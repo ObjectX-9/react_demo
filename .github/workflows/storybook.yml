@@ -25,4 +25,4 @@ jobs:
           keep_history: false
           jekyll: false
         env:
-          GITHUB_TOKEN: ${{ secrets.NPM_GITHUB_PACKAGES }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
