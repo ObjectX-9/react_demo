@@ -24,3 +24,5 @@ jobs:
           commit_message: 'chore(deploy): Storybook'
           keep_history: false
           jekyll: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.NPM_GITHUB_PACKAGES }}
