@@ -115,7 +115,7 @@
 		"rollup-plugin-dts": "6.1.0",
 		"rollup-plugin-postcss": "4.0.2",
 		"sass-loader": "14.1.1",
-		"storybook": "^8.0.6",
+		"storybook": "8.0.8",
 		"style-loader": "3.3.4",
 		"stylelint": "16.2.1",
 		"stylelint-config-prettier": "9.0.5",
