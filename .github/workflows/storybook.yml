@@ -16,12 +16,11 @@ jobs:
           yarn install
           yarn run build-storybook
       - name: Deploy to GitHub Pages
-		  if: success()
-		  uses: crazy-max/ghaction-github-pages@v3
-		  with:
-			target_branch: gh-pages
-			build_dir: storybook-static
-			commit_message: 'chore(deploy): Storybook'
-			keep_history: false
-			jekyll: false
-
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: gh-pages
+          build_dir: storybook-static
+          commit_message: 'chore(deploy): Storybook'
+          keep_history: false
+          jekyll: false
