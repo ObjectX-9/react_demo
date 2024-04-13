@@ -16,10 +16,5 @@ const config: StorybookConfig = {
 	'docs': {
 		'autodocs': 'tag',
 	},
-	// //  +++++ 新增 ++++
-	// async viteFinal(config) {
-	// 	config.base = '/react_demo/';
-	// 	return config;
-	// },
 };
 export default config;
