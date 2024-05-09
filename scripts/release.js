@@ -64,7 +64,7 @@ function getPreReleaseVersion(currentVersion, type) {
 				return `${major}.${minor}.${patch}-beta.0`;
 			}
 		default:
-			throw new Error(`不支持的预发布版本类型: ${type}`);
+			throw new Error(`❌ 不支持的预发布版本类型: ${type}`);
 	}
 }
 
@@ -78,7 +78,7 @@ async function getLatestVersion() {
 		const latestVersion = stdout.trim().replace(/^v/, ''); // 删除可能存在的前导 v
 		return latestVersion;
 	} catch (error) {
-		console.error(`获取最新版本失败: ${error.message}`);
+		console.error(`❌ 获取最新版本失败: ${error.message}`);
 		throw error; // 抛出错误，以便可以在调用此函数的地方捕获并处理
 	}
 }
@@ -127,7 +127,7 @@ async function ensureNpmLoggedIn() {
 		const {stdout: loginStdout} = await exec(
 			`echo "${answers.username}\n${answers.password}\n${answers.email}\n" | npm login`,
 		);
-		console.log(loginStdout);
+		console.log('✅ 登录输出流loginStdout', loginStdout);
 		return answers.username;
 	}
 }
@@ -137,7 +137,7 @@ async function ensureNpmLoggedIn() {
  * @returns {Promise<void>}
  */
 async function publishToNpm() {
-	console.log('🚀 正在发布到 npm...');
+	console.log('🚀🚀🚀 正在发布到 npm...');
 
 	try {
 		// 这里可以添加对newVersion的使用，例如修改package.json中的版本号
@@ -147,10 +147,10 @@ async function publishToNpm() {
 		const {stdout, stderr} = await exec('npm publish');
 
 		if (stderr) {
-			console.error(`✅ 发布输出流: ${stderr}`);
+			console.log(`✅ 发布输出流stderr: ${stderr}`);
 		}
 
-		console.log(`🎉 发布成功: ${stdout}`);
+		console.log(`🎉🎉🎉 npm包发布成功: ${stdout}`);
 	} catch (error) {
 		console.error(`❌ 发布失败: ${error.message}`);
 		throw error; // 抛出错误以供调用方处理
@@ -185,7 +185,7 @@ function gitOperations(newVersion) {
 				execSync(`git branch --set-upstream-to=origin/${branchName}`);
 			} else {
 				console.error(
-					`远程分支 'origin/${branchName}' 不存在，无法设置 upstream。`,
+					`❌ 远程分支 'origin/${branchName}' 不存在，无法设置 upstream。`,
 				);
 				return;
 			}
@@ -227,16 +227,16 @@ async function setNpmRegistry() {
 		const NPM_REGISTRY_URL = 'https://registry.npmjs.org/';
 		await exec(`npm config set registry ${NPM_REGISTRY_URL}`);
 
-		console.log(`npm registry已设置为: ${NPM_REGISTRY_URL}`);
+		console.log(`✅ npm registry已设置为: ${NPM_REGISTRY_URL}`);
 		return oldNpmRegistry; // 返回旧的registry，以便后续可以恢复
 	} catch (error) {
 		if (error.stdout) {
-			console.error(`✅ 设置npm registry输出流: ${error.stdout}`);
+			console.error(`❌ 设置npm registry stdout输出流: ${error.stdout}`);
 		}
 		if (error.stderr) {
-			console.error(`设置npm registry出错: ${error.stderr}`);
+			console.error(`❌ 设置npm registry stderr出错: ${error.stderr}`);
 		}
-		console.error(`设置npm registry中发生错误: ${error.message}`);
+		console.error(`❌ 设置npm registry中发生错误: ${error.message}`);
 		throw error; // 抛出错误以供调用者处理
 	}
 }
@@ -249,20 +249,20 @@ async function restoreNpmRegistry(oldNpmRegistry) {
 	if (oldNpmRegistry) {
 		try {
 			await exec(`npm config set registry ${oldNpmRegistry}`);
-			console.log(`npm registry已恢复为: ${oldNpmRegistry}`);
+			console.log(`✅ npm registry已恢复为: ${oldNpmRegistry}`);
 		} catch (error) {
 			if (error.stdout) {
 				console.error(`✅ 恢复npm registry输出流: ${error.stdout}`);
 			}
 			if (error.stderr) {
-				console.error(`恢复npm registry出错: ${error.stderr}`);
+				console.error(`❌ 恢复npm registry出错: ${error.stderr}`);
 			}
-			console.error(`恢复npm registry中发生错误: ${error.message}`);
+			console.error(`❌ 恢复npm registry中发生错误: ${error.message}`);
 			throw error; // 抛出错误以供调用方处理
 		}
 	} else {
-		console.error(`未找到旧的npm registry，无法恢复。`);
-		throw new Error(`未找到旧的npm registry，无法恢复。`);
+		console.error(`❌ 未找到旧的npm registry，无法恢复。`);
+		throw new Error(`❌ 未找到旧的npm registry，无法恢复。`);
 	}
 }
 
@@ -348,7 +348,7 @@ async function main() {
 		const latestVersion = await getLatestVersion();
 		await displayOptions(latestVersion);
 	} catch (error) {
-		console.error('发生错误:', error);
+		console.error('❌ 发生错误:', error);
 	}
 }
 
