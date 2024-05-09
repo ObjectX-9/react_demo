@@ -92,24 +92,61 @@ function updateVersion(newVersion) {
 }
 
 /**
+ * 确保用户已登录npm
+ */
+function ensureNpmLoggedIn(callback) {
+    exec('npm whoami', (err, stdout, stderr) => {
+        if (err) {
+            console.error('❌ 您似乎还没有登录到npm。请登录后继续。');
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'username',
+                    message: '请输入您的npm用户名:'
+                },
+                {
+                    type: 'password',
+                    name: 'password',
+                    message: '请输入您的npm密码:'
+                },
+                {
+                    type: 'input',
+                    name: 'email',
+                    message: '请输入您的npm邮箱地址:'
+                }
+            ]).then(answers => {
+                exec(`npm login`, (err, stdout, stderr) => {
+                    // 输入用户名、密码、邮箱等输入可能需要使用特殊方式处理，例如使用子进程的stdin写入，这取决于npm如何从CLI处理输入。
+                }).stdin.write(`${answers.username}\n${answers.password}\n${answers.email}\n`);
+            });
+        } else {
+            console.log(`✅ 检测到您已作为${stdout.trim()}登录到npm`);
+            callback();
+        }
+    });
+}
+
+/**
  * 发布到npm
  * @param {*} newVersion
  */
 function publishToNpm(newVersion) {
-	console.log('🚀 正在发布到 npm...');
-	exec('npm publish', (error, stdout, stderr) => {
-		if (error) {
-			console.error(`❌ 发布失败: ${error.message}`);
-			return;
-		}
-		if (stderr) {
-			console.error(`✅ 发布输出流: ${stderr}`);
-			return;
-		}
-		console.log(`🎉 发布成功: ${stdout}`);
-		// 发布完成后，恢复原来的registry
-		restoreNpmRegistry();
-	});
+    ensureNpmLoggedIn(() => {
+			console.log('🚀 正在发布到 npm...');
+			exec('npm publish', (error, stdout, stderr) => {
+				if (error) {
+					console.error(`❌ 发布失败: ${error.message}`);
+					return;
+				}
+				if (stderr) {
+					console.error(`✅ 发布输出流: ${stderr}`);
+					return;
+				}
+				console.log(`🎉 发布成功: ${stdout}`);
+				// 发布完成后，恢复原来的registry
+				restoreNpmRegistry();
+			});
+		});
 }
 
 /**
