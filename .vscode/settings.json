@@ -62,7 +62,17 @@
 	"css.validate": false,
 	"less.validate": false,
 	"scss.validate": false,
-	"stylelint.validate": ["css", "less", "sass", "scss"]
+	"stylelint.validate": [
+		"css",
+		"less",
+		"sass",
+		"scss"
+	],
+	"cSpell.words": [
+		"premajor",
+		"preminor",
+		"Prepatch"
+	]
 	// 在editor.codeActionsOnSave中增加styleLint修复
 	// ===============================================================
 }
