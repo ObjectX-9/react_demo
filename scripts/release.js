@@ -2,13 +2,12 @@ const {exec, execSync} = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
-
 const projectRootPath = path.join(__dirname, '..');
 const packageJsonPath = path.join(projectRootPath, 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const packageName = packageJson.name;
-console.log('✅ 部署脚本启动:', packageName);
-
+console.log('✅ 发包脚本启动【自动更新版本号、自动发布到npm】');
+console.log('!!! 使用前请确保仓库内已经是可发布状态');
 function isPreRelease(version) {
 	return /-/.test(version);
 }
