@@ -1,6 +1,6 @@
 {
   "name": "lint_demo",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "a lint demo ",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

@@ -76,7 +76,7 @@ function publishToNpm(newVersion) {
 			return;
 		}
 		if (stderr) {
-			console.error(`❌ 错误: ${stderr}`);
+			console.error(`✅ 发布输出流: ${stderr}`);
 			return;
 		}
 		console.log(`🎉 发布成功: ${stdout}`);
