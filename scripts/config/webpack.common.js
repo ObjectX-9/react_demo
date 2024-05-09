@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PLUGINS = [
 	// 配置html，自动引入打包出的js文件
 	new HtmlWebpackPlugin({
-		template: resolve(PROJECT_PATH, './public/index.html'),
+		template: resolve(PROJECT_PATH, './public_test/index.html'),
 		filename: 'index.html',
 		cache: false,
 		minify: isDev
