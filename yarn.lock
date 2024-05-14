@@ -2428,15 +2428,15 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/builder-manager@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/builder-manager/-/builder-manager-8.0.8.tgz#23ed7b13aa98662ccc6bd1fb5525246a4469bd33"
-  integrity sha512-0uihNTpTou0RFMM6PQLlfCxDxse9nIDEb83AmWE/OUnpKDDY9+WFupVWGaZc9HfH9h4Yqre2fiuK1b7KNYe7AQ==
+"@storybook/builder-manager@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/builder-manager/-/builder-manager-8.0.10.tgz#13af1624813fc26c221c88a0c27091ac48b05781"
+  integrity sha512-lo57jeeYuYCKYrmGOdLg25rMyiGYSTwJ+zYsQ3RvClVICjP6X0I1RCKAJDzkI0BixH6s1+w5ynD6X3PtDnhUuw==
   dependencies:
     "@fal-works/esbuild-plugin-global-externals" "^2.1.2"
-    "@storybook/core-common" "8.0.8"
-    "@storybook/manager" "8.0.8"
-    "@storybook/node-logger" "8.0.8"
+    "@storybook/core-common" "8.0.10"
+    "@storybook/manager" "8.0.10"
+    "@storybook/node-logger" "8.0.10"
     "@types/ejs" "^3.1.1"
     "@yarnpkg/esbuild-plugin-pnp" "^3.0.0-rc.10"
     browser-assert "^1.2.1"
@@ -2471,6 +2471,17 @@
     magic-string "^0.30.0"
     ts-dedent "^2.0.0"
 
+"@storybook/channels@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/channels/-/channels-8.0.10.tgz#56141b44001693ff99e2828deec685b7c12ff2c6"
+  integrity sha512-3JLxfD7czlx31dAGvAYJ4J4BNE/Y2+hhj/dsV3xlQTHKVpnWknaoeYEC1a6YScyfsH6W+XmP2rzZKzH4EkLSGQ==
+  dependencies:
+    "@storybook/client-logger" "8.0.10"
+    "@storybook/core-events" "8.0.10"
+    "@storybook/global" "^5.0.0"
+    telejson "^7.2.0"
+    tiny-invariant "^1.3.1"
+
 "@storybook/channels@8.0.6":
   version "8.0.6"
   resolved "https://registry.npmjs.org/@storybook/channels/-/channels-8.0.6.tgz#bd87e5f14933e00b10c23098d7a85b83025aebb2"
@@ -2482,33 +2493,22 @@
     telejson "^7.2.0"
     tiny-invariant "^1.3.1"
 
-"@storybook/channels@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/channels/-/channels-8.0.8.tgz#571b1ff9a58ae01a2172c877d87b1398d95c5579"
-  integrity sha512-L3EGVkabv3fweXnykD/GlNUDO5HtwlIfSovC7BF4MmP7662j2/eqlZrJxDojGtbv11XHjWp/UJHUIfKpcHXYjQ==
-  dependencies:
-    "@storybook/client-logger" "8.0.8"
-    "@storybook/core-events" "8.0.8"
-    "@storybook/global" "^5.0.0"
-    telejson "^7.2.0"
-    tiny-invariant "^1.3.1"
-
-"@storybook/cli@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/cli/-/cli-8.0.8.tgz#e1c73a9c009823fdda795f3c3cf074a7fef8ea91"
-  integrity sha512-RnSdgykh2i7es1rQ7CNGpDrKK/PN1f0xjwpkAHXCEB6T9KpHBmqDquzZp+N127a1HBHHXy018yi4wT8mSQyEoA==
+"@storybook/cli@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/cli/-/cli-8.0.10.tgz#1377749f546bc38912289072233059e0da5bcffc"
+  integrity sha512-KUZEO2lyvOS2sRJEFXovt6+5b65iWsh7F8e8S1cM20fCM1rZAlWtwmoxmDVXDmyEp0wTrq4FrRxKnbo9UO518w==
   dependencies:
     "@babel/core" "^7.23.0"
     "@babel/types" "^7.23.0"
     "@ndelangen/get-tarball" "^3.0.7"
-    "@storybook/codemod" "8.0.8"
-    "@storybook/core-common" "8.0.8"
-    "@storybook/core-events" "8.0.8"
-    "@storybook/core-server" "8.0.8"
-    "@storybook/csf-tools" "8.0.8"
-    "@storybook/node-logger" "8.0.8"
-    "@storybook/telemetry" "8.0.8"
-    "@storybook/types" "8.0.8"
+    "@storybook/codemod" "8.0.10"
+    "@storybook/core-common" "8.0.10"
+    "@storybook/core-events" "8.0.10"
+    "@storybook/core-server" "8.0.10"
+    "@storybook/csf-tools" "8.0.10"
+    "@storybook/node-logger" "8.0.10"
+    "@storybook/telemetry" "8.0.10"
+    "@storybook/types" "8.0.10"
     "@types/semver" "^7.3.4"
     "@yarnpkg/fslib" "2.10.3"
     "@yarnpkg/libzip" "2.3.0"
@@ -2535,6 +2535,13 @@
     tiny-invariant "^1.3.1"
     ts-dedent "^2.0.0"
 
+"@storybook/client-logger@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/client-logger/-/client-logger-8.0.10.tgz#d3de8377f41f6c76657ba75c729596dc67c5ffcb"
+  integrity sha512-u38SbZNAunZzxZNHMJb9jkUwFkLyWxmvp4xtiRM3u9sMUShXoTnzbw1yKrxs+kYJjg+58UQPZ1JhEBRcHt5Oww==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+
 "@storybook/client-logger@8.0.6":
   version "8.0.6"
   resolved "https://registry.npmjs.org/@storybook/client-logger/-/client-logger-8.0.6.tgz#70a96ad63318dcf856edeca366a8d21576f8cc09"
@@ -2542,25 +2549,18 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
-"@storybook/client-logger@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/client-logger/-/client-logger-8.0.8.tgz#351cc47629e91f188c6862038bf3a13cabb7d034"
-  integrity sha512-a4BKwl9NLFcuRgMyI7S4SsJeLFK0LCQxIy76V6YyrE1DigoXz4nA4eQxdjLf7JVvU0EZFmNSfbVL/bXzzWKNXA==
-  dependencies:
-    "@storybook/global" "^5.0.0"
-
-"@storybook/codemod@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/codemod/-/codemod-8.0.8.tgz#1480bfc7c005ade0ec3181158103c82e70ffdf3f"
-  integrity sha512-ufEBLciLmLlAh+L6lGgBObTiny6odXMKqiJOewQ9XfIN0wdWdyRUf5QdZIPOdfgHhWF2Q2HeswiulsoHm8Z/hA==
+"@storybook/codemod@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/codemod/-/codemod-8.0.10.tgz#cb5a553814d4512e5f05f3d3a20d07349c6dbcf9"
+  integrity sha512-t45jKGs/eyR/nKVX6QgRtMZSAjJo5aXWWk3B24xVbW6ywr0jt1LC100FkHG4Af8cApIfh8uUmS9X05hMG5zGGA==
   dependencies:
     "@babel/core" "^7.23.2"
     "@babel/preset-env" "^7.23.2"
     "@babel/types" "^7.23.0"
-    "@storybook/csf" "^0.1.2"
-    "@storybook/csf-tools" "8.0.8"
-    "@storybook/node-logger" "8.0.8"
-    "@storybook/types" "8.0.8"
+    "@storybook/csf" "^0.1.4"
+    "@storybook/csf-tools" "8.0.10"
+    "@storybook/node-logger" "8.0.10"
+    "@storybook/types" "8.0.10"
     "@types/cross-spawn" "^6.0.2"
     cross-spawn "^7.0.3"
     globby "^11.0.2"
@@ -2584,6 +2584,40 @@
     "@storybook/types" "8.0.6"
     memoizerific "^1.11.3"
     util-deprecate "^1.0.2"
+
+"@storybook/core-common@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/core-common/-/core-common-8.0.10.tgz#44e4c5d6ba50013012156ffbdc2fb02e92011af2"
+  integrity sha512-hsFlPieputaDQoxstnPa3pykTc4bUwEDgCHf8U43+/Z7qmLOQ9fpG+2CFW930rsCRghYpPreOvsmhY7lsGKWLQ==
+  dependencies:
+    "@storybook/core-events" "8.0.10"
+    "@storybook/csf-tools" "8.0.10"
+    "@storybook/node-logger" "8.0.10"
+    "@storybook/types" "8.0.10"
+    "@yarnpkg/fslib" "2.10.3"
+    "@yarnpkg/libzip" "2.3.0"
+    chalk "^4.1.0"
+    cross-spawn "^7.0.3"
+    esbuild "^0.18.0 || ^0.19.0 || ^0.20.0"
+    esbuild-register "^3.5.0"
+    execa "^5.0.0"
+    file-system-cache "2.3.0"
+    find-cache-dir "^3.0.0"
+    find-up "^5.0.0"
+    fs-extra "^11.1.0"
+    glob "^10.0.0"
+    handlebars "^4.7.7"
+    lazy-universal-dotenv "^4.0.0"
+    node-fetch "^2.0.0"
+    picomatch "^2.3.0"
+    pkg-dir "^5.0.0"
+    pretty-hrtime "^1.0.3"
+    resolve-from "^5.0.0"
+    semver "^7.3.7"
+    tempy "^1.0.1"
+    tiny-invariant "^1.3.1"
+    ts-dedent "^2.0.0"
+    util "^0.12.4"
 
 "@storybook/core-common@8.0.6":
   version "8.0.6"
@@ -2619,39 +2653,12 @@
     ts-dedent "^2.0.0"
     util "^0.12.4"
 
-"@storybook/core-common@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/core-common/-/core-common-8.0.8.tgz#3a6136097559bcfa581a372516f67f13ace85655"
-  integrity sha512-CL15M2oeQW+Rb1l7ciunLDI2Re+ojL2lX1ZFAiDedcOU+JHsdq43zAuXoZVzp8icUi2AUSwEjZIxGCSingj+JQ==
+"@storybook/core-events@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/core-events/-/core-events-8.0.10.tgz#03c70ca44816078e8a3479e6322a1d1f586da88a"
+  integrity sha512-TuHPS6p5ZNr4vp4butLb4R98aFx0NRYCI/7VPhJEUH5rPiqNzE3PZd8DC8rnVxavsJ+jO1/y+egNKXRYkEcoPQ==
   dependencies:
-    "@storybook/core-events" "8.0.8"
-    "@storybook/csf-tools" "8.0.8"
-    "@storybook/node-logger" "8.0.8"
-    "@storybook/types" "8.0.8"
-    "@yarnpkg/fslib" "2.10.3"
-    "@yarnpkg/libzip" "2.3.0"
-    chalk "^4.1.0"
-    cross-spawn "^7.0.3"
-    esbuild "^0.18.0 || ^0.19.0 || ^0.20.0"
-    esbuild-register "^3.5.0"
-    execa "^5.0.0"
-    file-system-cache "2.3.0"
-    find-cache-dir "^3.0.0"
-    find-up "^5.0.0"
-    fs-extra "^11.1.0"
-    glob "^10.0.0"
-    handlebars "^4.7.7"
-    lazy-universal-dotenv "^4.0.0"
-    node-fetch "^2.0.0"
-    picomatch "^2.3.0"
-    pkg-dir "^5.0.0"
-    pretty-hrtime "^1.0.3"
-    resolve-from "^5.0.0"
-    semver "^7.3.7"
-    tempy "^1.0.1"
-    tiny-invariant "^1.3.1"
     ts-dedent "^2.0.0"
-    util "^0.12.4"
 
 "@storybook/core-events@8.0.6":
   version "8.0.6"
@@ -2660,35 +2667,28 @@
   dependencies:
     ts-dedent "^2.0.0"
 
-"@storybook/core-events@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/core-events/-/core-events-8.0.8.tgz#70b606bdcfd153b0e94ded4414069aac89e38419"
-  integrity sha512-PtuvR7vS4glDEdCfKB4f1k3Vs1C3rTWP2DNbF+IjjPhNLMBznCdzTAPcz+NUIBvpjjGnhKwWikJ0yj931YjSVg==
-  dependencies:
-    ts-dedent "^2.0.0"
-
-"@storybook/core-server@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/core-server/-/core-server-8.0.8.tgz#2cb60f2ca58720f6257cb70327b93aea8f0df074"
-  integrity sha512-tSEueEBttbSohzhZVN2bFNlFx3eoqQ7p57cjQLKXXwKygS2qKxISKnFy+Y0nj20APz68Wj51kx0rN0nGALeegw==
+"@storybook/core-server@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/core-server/-/core-server-8.0.10.tgz#9e75a5c47299f447b9a9056482ff99482b7f873c"
+  integrity sha512-HYDw2QFBxg1X/d6g0rUhirOB5Jq6g90HBnyrZzxKoqKWJCNsCADSgM+h9HgtUw0jA97qBpIqmNO9n3mXFPWU/Q==
   dependencies:
     "@aw-web-design/x-default-browser" "1.4.126"
     "@babel/core" "^7.23.9"
     "@discoveryjs/json-ext" "^0.5.3"
-    "@storybook/builder-manager" "8.0.8"
-    "@storybook/channels" "8.0.8"
-    "@storybook/core-common" "8.0.8"
-    "@storybook/core-events" "8.0.8"
-    "@storybook/csf" "^0.1.2"
-    "@storybook/csf-tools" "8.0.8"
+    "@storybook/builder-manager" "8.0.10"
+    "@storybook/channels" "8.0.10"
+    "@storybook/core-common" "8.0.10"
+    "@storybook/core-events" "8.0.10"
+    "@storybook/csf" "^0.1.4"
+    "@storybook/csf-tools" "8.0.10"
     "@storybook/docs-mdx" "3.0.0"
     "@storybook/global" "^5.0.0"
-    "@storybook/manager" "8.0.8"
-    "@storybook/manager-api" "8.0.8"
-    "@storybook/node-logger" "8.0.8"
-    "@storybook/preview-api" "8.0.8"
-    "@storybook/telemetry" "8.0.8"
-    "@storybook/types" "8.0.8"
+    "@storybook/manager" "8.0.10"
+    "@storybook/manager-api" "8.0.10"
+    "@storybook/node-logger" "8.0.10"
+    "@storybook/preview-api" "8.0.10"
+    "@storybook/telemetry" "8.0.10"
+    "@storybook/types" "8.0.10"
     "@types/detect-port" "^1.3.0"
     "@types/node" "^18.0.0"
     "@types/pretty-hrtime" "^1.0.0"
@@ -2724,6 +2724,21 @@
     "@storybook/csf-tools" "8.0.6"
     unplugin "^1.3.1"
 
+"@storybook/csf-tools@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/csf-tools/-/csf-tools-8.0.10.tgz#f797c281fb10f9cb6382dc6d4ca55542f75a3c38"
+  integrity sha512-xUc6fVIKoCujf/7JZhkYjrVXeNsTSoDrZFNmqLEmtfktJVqYdXY4LuSAtlBmAIyETi09ULTuuVexrcKFwjzuBA==
+  dependencies:
+    "@babel/generator" "^7.23.0"
+    "@babel/parser" "^7.23.0"
+    "@babel/traverse" "^7.23.2"
+    "@babel/types" "^7.23.0"
+    "@storybook/csf" "^0.1.4"
+    "@storybook/types" "8.0.10"
+    fs-extra "^11.1.0"
+    recast "^0.23.5"
+    ts-dedent "^2.0.0"
+
 "@storybook/csf-tools@8.0.6":
   version "8.0.6"
   resolved "https://registry.npmjs.org/@storybook/csf-tools/-/csf-tools-8.0.6.tgz#8630289cf04aea6fefd0368a786832240e236eb2"
@@ -2739,21 +2754,6 @@
     recast "^0.23.5"
     ts-dedent "^2.0.0"
 
-"@storybook/csf-tools@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/csf-tools/-/csf-tools-8.0.8.tgz#04f843bfc3961271adbb3e64be7e5e32396c51f8"
-  integrity sha512-Ji5fpoGym/MSyHJ6ALghVUUecwhEbN0On+jOZ2VPkrkATi9UDtryHQPdF60HKR63Iv53xRuWRzudB6zm43RTzw==
-  dependencies:
-    "@babel/generator" "^7.23.0"
-    "@babel/parser" "^7.23.0"
-    "@babel/traverse" "^7.23.2"
-    "@babel/types" "^7.23.0"
-    "@storybook/csf" "^0.1.2"
-    "@storybook/types" "8.0.8"
-    fs-extra "^11.1.0"
-    recast "^0.23.5"
-    ts-dedent "^2.0.0"
-
 "@storybook/csf@^0.0.1":
   version "0.0.1"
   resolved "https://registry.npmjs.org/@storybook/csf/-/csf-0.0.1.tgz#95901507dc02f0bc6f9ac8ee1983e2fc5bb98ce6"
@@ -2765,6 +2765,13 @@
   version "0.1.3"
   resolved "https://registry.npmjs.org/@storybook/csf/-/csf-0.1.3.tgz#79047a4dece94ba7c8e78003723e9bd9e071379a"
   integrity sha512-IPZvXXo4b3G+gpmgBSBqVM81jbp2ePOKsvhgJdhyZJtkYQCII7rg9KKLQhvBQM5sLaF1eU6r0iuwmyynC9d9SA==
+  dependencies:
+    type-fest "^2.19.0"
+
+"@storybook/csf@^0.1.4":
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/@storybook/csf/-/csf-0.1.7.tgz#dcc6c16a353bc09c8c619ba1a23ba93b2aab0b9d"
+  integrity sha512-53JeLZBibjQxi0Ep+/AJTfxlofJlxy1jXcSKENlnKxHjWEYyHQCumMP5yTFjf7vhNnMjEpV3zx6t23ssFiGRyw==
   dependencies:
     type-fest "^2.19.0"
 
@@ -2809,6 +2816,27 @@
     "@vitest/utils" "^1.3.1"
     util "^0.12.4"
 
+"@storybook/manager-api@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/manager-api/-/manager-api-8.0.10.tgz#af71d280b84e45146342ff890fa5799a0c31c52d"
+  integrity sha512-LLu6YKQLWf5QB3h3RO8IevjLrSOew7aidIQPr9DIr9xC8wA7N2fQabr+qrJdE306p3cHZ0nzhYNYZxSjm4Dvdw==
+  dependencies:
+    "@storybook/channels" "8.0.10"
+    "@storybook/client-logger" "8.0.10"
+    "@storybook/core-events" "8.0.10"
+    "@storybook/csf" "^0.1.4"
+    "@storybook/global" "^5.0.0"
+    "@storybook/icons" "^1.2.5"
+    "@storybook/router" "8.0.10"
+    "@storybook/theming" "8.0.10"
+    "@storybook/types" "8.0.10"
+    dequal "^2.0.2"
+    lodash "^4.17.21"
+    memoizerific "^1.11.3"
+    store2 "^2.14.2"
+    telejson "^7.2.0"
+    ts-dedent "^2.0.0"
+
 "@storybook/manager-api@8.0.6":
   version "8.0.6"
   resolved "https://registry.npmjs.org/@storybook/manager-api/-/manager-api-8.0.6.tgz#3b1bef655a6e51a5e311d3752b8bff68669be335"
@@ -2830,41 +2858,40 @@
     telejson "^7.2.0"
     ts-dedent "^2.0.0"
 
-"@storybook/manager-api@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/manager-api/-/manager-api-8.0.8.tgz#e9c2661a8b2fe060076e9bb02fcdc7d498f6caed"
-  integrity sha512-1HU4nfLRi0sD2uw229gb8EQyufNWrLvMNpg013kBsBXRd+Dj4dqF3v+KrYFNtteY7riC4mAJ6YcQ4tBUNYZDug==
-  dependencies:
-    "@storybook/channels" "8.0.8"
-    "@storybook/client-logger" "8.0.8"
-    "@storybook/core-events" "8.0.8"
-    "@storybook/csf" "^0.1.2"
-    "@storybook/global" "^5.0.0"
-    "@storybook/icons" "^1.2.5"
-    "@storybook/router" "8.0.8"
-    "@storybook/theming" "8.0.8"
-    "@storybook/types" "8.0.8"
-    dequal "^2.0.2"
-    lodash "^4.17.21"
-    memoizerific "^1.11.3"
-    store2 "^2.14.2"
-    telejson "^7.2.0"
-    ts-dedent "^2.0.0"
+"@storybook/manager@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/manager/-/manager-8.0.10.tgz#c3c6229d7f2cfb47f65dc68572f42cce2661e79f"
+  integrity sha512-bojGglUQNry48L4siURc2zQKswavLzMh69rqsfL3ZXx+i+USfRfB7593azTlaZh0q6HO4bUAjB24RfQCyifLLQ==
 
-"@storybook/manager@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/manager/-/manager-8.0.8.tgz#a90dd62b64348698308738d8a5986f02fb5671e8"
-  integrity sha512-pWYHSDmgT8p/XbQMKuDPdgB6KzjePI6dU5KQ5MERYfch1UiuGPVm1HHDlxxSfHW0IIXw9Qnwq4L0Awe4qhvJKQ==
+"@storybook/node-logger@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/node-logger/-/node-logger-8.0.10.tgz#dc48f174b26e44a7fbfbbc497797496dd208fcb9"
+  integrity sha512-UMmaUaA3VOX/mKLsSvOnbZre2/1tZ6hazA6H0eAnClKb51jRD1AJrsBYK+uHr/CAp7t710bB5U8apPov7hayDw==
 
 "@storybook/node-logger@8.0.6":
   version "8.0.6"
   resolved "https://registry.npmjs.org/@storybook/node-logger/-/node-logger-8.0.6.tgz#2d3b948d281eee25de49ba5469563c1347fc8baf"
   integrity sha512-mDRJLVAuTWauO0mnrwajfJV/6zKBJVPp/9g0ULccE3Q+cuqNfUefqfCd17cZBlJHeRsdB9jy9tod48d4qzGEkQ==
 
-"@storybook/node-logger@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/node-logger/-/node-logger-8.0.8.tgz#12d29cac99ef439aba0050f2fb03894ed4c52c86"
-  integrity sha512-ymps3MMTxtMWq0eDiXk1iO7iv0Eg0PuUvOpPPohEJauGzU9THv81xx01aaHKSprFFJYD2LMQr1aFuUplItO12g==
+"@storybook/preview-api@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/preview-api/-/preview-api-8.0.10.tgz#daee994663fff358de4ceb0ce1108e2c099dfb42"
+  integrity sha512-uZ6btF7Iloz9TnDcKLQ5ydi2YK0cnulv/8FLQhBCwSrzLLLb+T2DGz0cAeuWZEvMUNWNmkWJ9PAFQFs09/8p/Q==
+  dependencies:
+    "@storybook/channels" "8.0.10"
+    "@storybook/client-logger" "8.0.10"
+    "@storybook/core-events" "8.0.10"
+    "@storybook/csf" "^0.1.4"
+    "@storybook/global" "^5.0.0"
+    "@storybook/types" "8.0.10"
+    "@types/qs" "^6.9.5"
+    dequal "^2.0.2"
+    lodash "^4.17.21"
+    memoizerific "^1.11.3"
+    qs "^6.10.0"
+    tiny-invariant "^1.3.1"
+    ts-dedent "^2.0.0"
+    util-deprecate "^1.0.2"
 
 "@storybook/preview-api@8.0.6":
   version "8.0.6"
@@ -2877,26 +2904,6 @@
     "@storybook/csf" "^0.1.2"
     "@storybook/global" "^5.0.0"
     "@storybook/types" "8.0.6"
-    "@types/qs" "^6.9.5"
-    dequal "^2.0.2"
-    lodash "^4.17.21"
-    memoizerific "^1.11.3"
-    qs "^6.10.0"
-    tiny-invariant "^1.3.1"
-    ts-dedent "^2.0.0"
-    util-deprecate "^1.0.2"
-
-"@storybook/preview-api@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/preview-api/-/preview-api-8.0.8.tgz#0684226cd822b9266cceced26ce288b91ea6aa02"
-  integrity sha512-khgw2mNiBrSZS3KNGQPzjneL3Csh3BOq0yLAtJpT7CRSrI/YjlE7jjcTkKzoxW+UCgvNTnLvsowcuzu82e69fA==
-  dependencies:
-    "@storybook/channels" "8.0.8"
-    "@storybook/client-logger" "8.0.8"
-    "@storybook/core-events" "8.0.8"
-    "@storybook/csf" "^0.1.2"
-    "@storybook/global" "^5.0.0"
-    "@storybook/types" "8.0.8"
     "@types/qs" "^6.9.5"
     dequal "^2.0.2"
     lodash "^4.17.21"
@@ -2959,6 +2966,15 @@
     type-fest "~2.19"
     util-deprecate "^1.0.2"
 
+"@storybook/router@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/router/-/router-8.0.10.tgz#07b3744f53fe3d0dfb1f7ef15442f6d81287127a"
+  integrity sha512-AZhgiet+EK0ZsPbaDgbbVTAHW2LAMCP1z/Un2uMBbdDeD0Ys29Af47AbEj/Ome5r1cqasLvzq2WXJlVXPNB0Zw==
+  dependencies:
+    "@storybook/client-logger" "8.0.10"
+    memoizerific "^1.11.3"
+    qs "^6.10.0"
+
 "@storybook/router@8.0.6":
   version "8.0.6"
   resolved "https://registry.npmjs.org/@storybook/router/-/router-8.0.6.tgz#ce022c368e12826a6628ac7e9abcec080c77843f"
@@ -2968,23 +2984,14 @@
     memoizerific "^1.11.3"
     qs "^6.10.0"
 
-"@storybook/router@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/router/-/router-8.0.8.tgz#9688ff51590b303725e4db065483ec134dffe571"
-  integrity sha512-wdFdNsEKweigU9VkGZtpb7GhBJLWzbABcwOuEy2h0d5m7egB97hy9BxhANdqkC+PbAHrabxC99Ca3wTj50MoDg==
+"@storybook/telemetry@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/telemetry/-/telemetry-8.0.10.tgz#a22234c3f8273bbea0766359309f60325fe2bb57"
+  integrity sha512-s4Uc+KZQkdmD2d+64Qf8wYknhQZwmjf2CxjIjv9b4KLsU/nyfDheK7Fzd1jhBKb2UQUlLW5HhZkBgs1RsZcDHA==
   dependencies:
-    "@storybook/client-logger" "8.0.8"
-    memoizerific "^1.11.3"
-    qs "^6.10.0"
-
-"@storybook/telemetry@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/telemetry/-/telemetry-8.0.8.tgz#d477d9fcdc5d7a50692d39ba1e061c1e5e500d46"
-  integrity sha512-Uvj4nN01vQgjXZYKF/GKTFE85//Qm4ZTlJxTFWid+oYWc8NpAyJvlsJkj/dsEn4cLrgnJx2e4xvnx0Umr2ck+A==
-  dependencies:
-    "@storybook/client-logger" "8.0.8"
-    "@storybook/core-common" "8.0.8"
-    "@storybook/csf-tools" "8.0.8"
+    "@storybook/client-logger" "8.0.10"
+    "@storybook/core-common" "8.0.10"
+    "@storybook/csf-tools" "8.0.10"
     chalk "^4.1.0"
     detect-package-manager "^2.0.1"
     fetch-retry "^5.0.2"
@@ -3008,6 +3015,16 @@
     chai "^4.4.1"
     util "^0.12.4"
 
+"@storybook/theming@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/theming/-/theming-8.0.10.tgz#bc8a3fe98fc83e9751eeabd789be4acc05a10c8a"
+  integrity sha512-7NHt7bMC7lPkwz9KdDpa6DkLoQZz5OV6jsx/qY91kcdLo1rpnRPAiVlJvmWesFxi1oXOpVDpHHllWzf8KDBv8A==
+  dependencies:
+    "@emotion/use-insertion-effect-with-fallbacks" "^1.0.1"
+    "@storybook/client-logger" "8.0.10"
+    "@storybook/global" "^5.0.0"
+    memoizerific "^1.11.3"
+
 "@storybook/theming@8.0.6":
   version "8.0.6"
   resolved "https://registry.npmjs.org/@storybook/theming/-/theming-8.0.6.tgz#ae71f2a00d12666644bf0a99f3034d4f07d98045"
@@ -3018,15 +3035,14 @@
     "@storybook/global" "^5.0.0"
     memoizerific "^1.11.3"
 
-"@storybook/theming@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/theming/-/theming-8.0.8.tgz#ef72edf6b7f37c0e7e2d6134eccfdff54618d8c6"
-  integrity sha512-43hkNz7yo8Bl97AO2WbxIGprUqMhUZyK9g8383bd30gSxy9nfND/bdSdcgmA8IokDn8qp37Q4QmxtUZdhjMzZQ==
+"@storybook/types@8.0.10":
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/@storybook/types/-/types-8.0.10.tgz#99864aa267d9761e649b28a8b26a782f78c29de7"
+  integrity sha512-S/hKS7+SqNnYIehwxdQ4M2nnlfGDdYWAXdtPCVJCmS+YF2amgAxeuisiHbUg7eypds6VL0Oxk/j2nPEHOHk9pg==
   dependencies:
-    "@emotion/use-insertion-effect-with-fallbacks" "^1.0.1"
-    "@storybook/client-logger" "8.0.8"
-    "@storybook/global" "^5.0.0"
-    memoizerific "^1.11.3"
+    "@storybook/channels" "8.0.10"
+    "@types/express" "^4.7.0"
+    file-system-cache "2.3.0"
 
 "@storybook/types@8.0.6":
   version "8.0.6"
@@ -3034,15 +3050,6 @@
   integrity sha512-YKq4A+3diQ7UCGuyrB/9LkB29jjGoEmPl3TfV7mO1FvdRw22BNuV3GyJCiLUHigSKiZgFo+pfQhmsNRJInHUnQ==
   dependencies:
     "@storybook/channels" "8.0.6"
-    "@types/express" "^4.7.0"
-    file-system-cache "2.3.0"
-
-"@storybook/types@8.0.8":
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/@storybook/types/-/types-8.0.8.tgz#bf226aad7a3036490359e261607e6f7f234f6c9c"
-  integrity sha512-NGsgCsXnWlaZmHenHDgHGs21zhweZACkqTNsEQ7hvsiF08QeiKAdgJLQg3YeGK73h9mFDRP9djprUtJYab6vnQ==
-  dependencies:
-    "@storybook/channels" "8.0.8"
     "@types/express" "^4.7.0"
     file-system-cache "2.3.0"
 
@@ -4329,6 +4336,11 @@ async@^3.2.3:
   resolved "https://registry.npmjs.org/async/-/async-3.2.5.tgz#ebd52a8fdaf7a2289a24df399f8d8485c8a46b66"
   integrity sha512-baNZyqaaLhyLVKm/DlvdW051MSgO6b8eVfIezl9E5PqWxFgzLm/wQntEW4zOytVburDEr0JlALEpdOFwvErLsg==
 
+asynckit@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
+  integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
+
 at-least-node@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
@@ -4382,6 +4394,15 @@ available-typed-arrays@^1.0.7:
   integrity sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==
   dependencies:
     possible-typed-array-names "^1.0.0"
+
+axios@^1.6.8:
+  version "1.6.8"
+  resolved "https://registry.npmjs.org/axios/-/axios-1.6.8.tgz#66d294951f5d988a00e87a0ffb955316a619ea66"
+  integrity sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 babel-core@^7.0.0-bridge.0:
   version "7.0.0-bridge.0"
@@ -5084,6 +5105,13 @@ colorette@^2.0.10, colorette@^2.0.14, colorette@^2.0.20:
   version "2.0.20"
   resolved "https://registry.npmjs.org/colorette/-/colorette-2.0.20.tgz#9eb793e6833067f7235902fcd3b09917a000a95a"
   integrity sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==
+
+combined-stream@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
+  integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
+  dependencies:
+    delayed-stream "~1.0.0"
 
 commander@11.1.0:
   version "11.1.0"
@@ -5867,6 +5895,11 @@ del@^6.0.0:
     p-map "^4.0.0"
     rimraf "^3.0.2"
     slash "^3.0.0"
+
+delayed-stream@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
+  integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
 delegates@^1.0.0:
   version "1.0.0"
@@ -7124,7 +7157,7 @@ flow-parser@0.*:
   resolved "https://registry.npmjs.org/flow-parser/-/flow-parser-0.233.0.tgz#b983e65812d5ecae79f08ae3ed8ad2e131a9b966"
   integrity sha512-E/mv51GYJfLuRX6fZnw4M52gBxYa8pkHUOgNEZOcQK2RTXS8YXeU5rlalkTcY99UpwbeNVCSUFKaavpOksi/pQ==
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.15.6:
   version "1.15.6"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
   integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
@@ -7148,6 +7181,15 @@ foreground-child@^3.1.0:
   dependencies:
     cross-spawn "^7.0.0"
     signal-exit "^4.0.1"
+
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
 
 forwarded@0.2.0:
   version "0.2.0"
@@ -9517,7 +9559,7 @@ mime-db@1.52.0, "mime-db@>= 1.43.0 < 2":
   resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz#bbabcdc02859f4987301c856e3387ce5ec43bf70"
   integrity sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==
 
-mime-types@^2.1.27, mime-types@^2.1.31, mime-types@~2.1.17, mime-types@~2.1.24, mime-types@~2.1.34:
+mime-types@^2.1.12, mime-types@^2.1.27, mime-types@^2.1.31, mime-types@~2.1.17, mime-types@~2.1.24, mime-types@~2.1.34:
   version "2.1.35"
   resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.35.tgz#381a871b62a734450660ae3deee44813f70d959a"
   integrity sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==
@@ -11352,6 +11394,11 @@ proxy-addr@~2.0.7:
     forwarded "0.2.0"
     ipaddr.js "1.9.1"
 
+proxy-from-env@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
+  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
+
 prr@~1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
@@ -12665,12 +12712,12 @@ store2@^2.14.2:
   resolved "https://registry.npmjs.org/store2/-/store2-2.14.3.tgz#24077d7ba110711864e4f691d2af941ec533deb5"
   integrity sha512-4QcZ+yx7nzEFiV4BMLnr/pRa5HYzNITX2ri0Zh6sT9EyQHbBHacC6YigllUPU9X3D0f/22QCgfokpKs52YRrUg==
 
-storybook@8.0.8:
-  version "8.0.8"
-  resolved "https://registry.npmjs.org/storybook/-/storybook-8.0.8.tgz#1ef69577d8eb174f8d62e1bd3302a9baa157e670"
-  integrity sha512-9gTnnAakJBtMCg8oPGqnpy7g/C3Tj2IWiVflHiFg1SDD9zXBoc4mZhaYPTne4LRBUhXk7XuFagKfiRN2V/MuKA==
+storybook@^8.0.6:
+  version "8.0.10"
+  resolved "https://registry.npmjs.org/storybook/-/storybook-8.0.10.tgz#397e7a95641421610ba4741bc63adbb380eed01f"
+  integrity sha512-9/4oxISopLyr5xz7Du27mmQgcIfB7UTLlNzkK4IklWTiSgsOgYgZpsmIwymoXNtkrvh+QsqskdcUP1C7nNiEtw==
   dependencies:
-    "@storybook/cli" "8.0.8"
+    "@storybook/cli" "8.0.10"
 
 stream-shift@^1.0.0:
   version "1.0.3"

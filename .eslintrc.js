@@ -9,11 +9,11 @@ module.exports = {
 		node: true,
 	},
 	extends: [
-        "standard-with-typescript",
-        "plugin:react/recommended",
-        "prettier",
-        "plugin:storybook/recommended"
-    ],
+		'standard-with-typescript',
+		'plugin:react/recommended',
+		'prettier',
+		'plugin:storybook/recommended',
+	],
 	settings: {
 		'react': {
 			'version': 'detect', // 自动检测 React 版本
@@ -58,6 +58,7 @@ module.exports = {
 		'@typescript-eslint/explicit-function-return-type': OFF,
 		'no-tabs': OFF,
 		'@typescript-eslint/indent': OFF,
+		'@typescript-eslint/no-floating-promises': OFF,
 	},
 	// 忽略文件
 	ignorePatterns: [
