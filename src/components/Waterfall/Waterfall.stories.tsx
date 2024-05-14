@@ -1,5 +1,4 @@
 import type {Meta, StoryObj} from '@storybook/react';
-import {fn} from '@storybook/test';
 import {Waterfall} from './Waterfall';
 
 const meta = {
@@ -9,40 +8,13 @@ const meta = {
 		layout: 'centered',
 	},
 	tags: ['autodocs'],
-	// More on argTypes: https://storybook.js.org/docs/api/argtypes
-	argTypes: {
-		backgroundColor: {control: 'color'},
-	},
-	// Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-	args: {onClick: fn()},
+	argTypes: {},
 } satisfies Meta<typeof Waterfall>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
-	args: {
-		label: 'Button',
-	},
-};
-
-export const Secondary: Story = {
-	args: {
-		label: 'Button',
-	},
-};
-
-export const Large: Story = {
-	args: {
-		size: 'large',
-		label: 'Button',
-	},
-};
-
-export const Small: Story = {
-	args: {
-		size: 'small',
-		label: 'Button',
-	},
+// 使用column方案实现的瀑布流
+export const CloumnWaterfall: Story = {
+	args: {},
 };

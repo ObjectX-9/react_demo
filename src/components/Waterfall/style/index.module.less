@@ -1,15 +1,44 @@
 .container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	width: 100%; /* 容器宽度 */
+	column-count: 5; /* 定义列数 */
+	column-gap: 16px; /* 列与列之间的间距 */
+
 	.item {
-		display: block;
-		width: 100px;
-		object-fit: contain;
-		overflow: hidden;
-		aspect-ratio: 1 / 1;
-		border: 1px solid #ccc;
-		border-radius: 10px;
-		margin: 10px;
+		break-inside: avoid; /* 防止内容在列内部断开 */
+		margin-bottom: 16px; /* 每个项目之间的间距 */
+
+		img {
+			width: 100%; /* 图片宽度填满列宽 */
+			height: auto; /* 保持图片宽高比 */
+		}
+	}
+}
+
+/* 为了响应式设计，你可以使用媒体查询来改变列数 */
+@media (width <= 1000px) {
+	/* stylelint-disable-next-line rule-empty-line-before */
+	.container {
+		column-count: 4;
+	}
+}
+
+@media (width <= 800px) {
+	/* stylelint-disable-next-line rule-empty-line-before */
+	.container {
+		column-count: 3;
+	}
+}
+
+@media (width <= 600px) {
+	/* stylelint-disable-next-line rule-empty-line-before */
+	.container {
+		column-count: 2;
+	}
+}
+
+@media (width <= 400px) {
+	/* stylelint-disable-next-line rule-empty-line-before */
+	.container {
+		column-count: 1;
 	}
 }

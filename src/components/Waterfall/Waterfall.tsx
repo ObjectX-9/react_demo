@@ -3,13 +3,21 @@ import style from './style/index.module.less';
 import {fetchRandomImage} from '../../api';
 import type {UnsplashImage} from '../../api';
 export interface WaterfallProps {
-	// 要显示的项目
+	/**
+	 * 图片数据列表
+	 */
 	items?: string[];
-	// 图片列宽度
+	/**
+	 * 图片列宽度，不传入则按列数，每一列宽度是容器的【1 / maxColumns】
+	 */
 	columnWidth?: number;
-	// 图片间距
+	/**
+	 * 图片间距
+	 */
 	gapSize?: number;
-	// 最大列数
+	/**
+	 * 最大列数
+	 */
 	maxColumns?: number;
 }
 
@@ -46,7 +54,7 @@ export const Waterfall = ({
 				console.log('✅ zhuling ~  image:', image);
 
 				return (
-					<div key={image?.id} className={style.item}>
+					<div key={`${image?.id}${index}`} className={style.item}>
 						<img src={image.urls.full} alt={`Image ${index}`} />
 					</div>
 				);
