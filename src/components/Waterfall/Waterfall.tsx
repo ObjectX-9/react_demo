@@ -1,49 +1,34 @@
 import React, {useEffect} from 'react';
 import style from './style/index.module.less';
 import {fetchRandomImage} from '../../api';
-
+import type {UnsplashImage} from '../../api';
 export interface WaterfallProps {
-	/**
-	 * Is this the principal call to action on the page?
-	 */
-	primary?: boolean;
-	/**
-	 * What background color to use
-	 */
-	backgroundColor?: string;
-	/**
-	 * How large should the button be?
-	 */
-	size?: 'small' | 'medium' | 'large';
-	/**
-	 * Button contents
-	 */
-	label: string;
-	/**
-	 * Optional click handler
-	 */
-	onClick?: () => void;
+	// 要显示的项目
+	items?: string[];
+	// 图片列宽度
+	columnWidth?: number;
+	// 图片间距
+	gapSize?: number;
+	// 最大列数
+	maxColumns?: number;
 }
 
 /**
- * Primary UI component for user interaction
+ * 瀑布流组件
  */
 export const Waterfall = ({
-	primary = false,
-	size = 'medium',
-	backgroundColor,
-	label,
+	items,
+	columnWidth = 200,
+	gapSize = 10,
+	maxColumns = 5,
 	...props
 }: WaterfallProps) => {
 	const [images, setImages] = React.useState<any>([]);
-	const mode = primary
-		? style['storybook-button--primary']
-		: style['storybook-button--secondary'];
+
 	useEffect(() => {
 		const getImages = async () => {
 			try {
-				// 假设fetchRandomImage返回的是图片URL数组
-				const imageUrls = await fetchRandomImage(30); // 获取30张图片
+				const imageUrls = await fetchRandomImage(10); // 获取30张图片
 				setImages(imageUrls);
 			} catch (error) {
 				console.error('Error fetching images from Unsplash:', error);
@@ -55,18 +40,17 @@ export const Waterfall = ({
 	useEffect(() => {
 		console.log('✅ zhuling ~ images:', images);
 	}, [images]);
-
 	return (
-		<button
-			type='button'
-			className={[
-				style['storybook-button'],
-				style[`storybook-button--${size}`],
-				mode,
-			].join(' ')}
-			style={{backgroundColor}}
-			{...props}>
-			{label}
-		</button>
+		<div className={style.container}>
+			{images?.map((image: UnsplashImage, index: number) => {
+				console.log('✅ zhuling ~  image:', image);
+
+				return (
+					<div key={image?.id} className={style.item}>
+						<img src={image.urls.full} alt={`Image ${index}`} />
+					</div>
+				);
+			})}
+		</div>
 	);
 };
