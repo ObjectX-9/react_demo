@@ -14,6 +14,27 @@
 	}
 }
 
+.flexContainer {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+
+	.childContainer {
+		flex: 1 1 1;
+		margin-left: 10px;
+
+		.item {
+			flex: '0 0 auto';
+			width: '100%';
+
+			img {
+				width: 100%; /* 图片宽度填满列宽 */
+				height: auto; /* 保持图片宽高比 */
+			}
+		}
+	}
+}
+
 /* 为了响应式设计，你可以使用媒体查询来改变列数 */
 @media (width <= 1000px) {
 	/* stylelint-disable-next-line rule-empty-line-before */

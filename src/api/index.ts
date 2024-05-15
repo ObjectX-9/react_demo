@@ -18,6 +18,7 @@ export interface UnsplashImage {
 		regular: string;
 		small: string;
 		thumb: string;
+		small_s3: string;
 	};
 	links: {
 		self: string;
@@ -25,12 +26,41 @@ export interface UnsplashImage {
 		download: string;
 		download_location: string;
 	};
+	topic_submissions: {
+		experimental: {
+			'status': string;
+		};
+		wallpapers: {
+			'status': string;
+		};
+		'3d-renders': {
+			'status': string;
+			'approved_on': string;
+		};
+	};
+	slug: string;
+	breadcrumbs: string[];
+	current_user_collections: string[];
+	promoted_at: string;
+	sponsorship: string | null;
+	alternative_slugs: {
+		en: string;
+		es: string;
+		ja: string;
+		fr: string;
+		it: string;
+		ko: string;
+		de: string;
+		pt: string;
+	};
 	likes: number;
 	liked_by_user: boolean;
 	user: {
 		id: string;
 		username: string;
 		name: string;
+		first_name: string;
+		last_name: string;
 		portfolio_url: string | null;
 		bio: string | null;
 		location: string | null;
@@ -45,6 +75,26 @@ export interface UnsplashImage {
 		instagram_username: string | null;
 		twitter_username: string | null;
 		updated_at: string;
+		total_promoted_photos: number;
+		total_illustrations: number;
+		for_hire: boolean;
+		accepted_tos: boolean;
+		total_promoted_illustrations: number;
+		links: {
+			self: string;
+			html: string;
+			photos: string;
+			likes: string;
+			portfolio: string;
+			following: string;
+			followers: string;
+		};
+		social: {
+			instagram_username: string | null;
+			portfolio_url: string | null;
+			twitter_username: string | null;
+			paypal_email: string | null;
+		};
 	};
 }
 interface I_ImgRes {
