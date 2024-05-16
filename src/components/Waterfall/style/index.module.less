@@ -36,17 +36,16 @@
 }
 
 .gridContainer {
-	display: 'grid';
-	grid-auto-rows: '10px';
-	grid-gap: '10px';
-	// grid-template-columns: 'repeat(5, 1fr)';
+	display: grid;
+	grid-auto-rows: 2px;
+	grid-gap: 0 10px;
+	grid-template-columns: repeat(4, 1fr);
+	align-items: end;
 
 	.item {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
-		font-size: 30px;
 		background: #f8f8fa;
 
 		img {

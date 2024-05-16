@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import type {ReactNode} from 'react';
 import style from './style/index.module.less';
 import {fetchRandomImage} from '../../api';
@@ -90,48 +90,49 @@ const flexTypeRender = (options: WaterfallProps) => {
 
 const gridTypeRender = (options: WaterfallProps) => {
 	const {items = []} = options;
-	// 存储图片高度的状态
-	const [heights, setHeights] = useState(Array(items.length).fill(0));
-
-	// 动态计算图片的高度
-	const calculateHeights = () => {
-		items.forEach((imagesInfo, index) => {
-			const img = new Image();
-			img.src = imagesInfo.urls.full;
-			img.onload = () => {
-				const height = img.offsetHeight;
-				console.log('✅ ~ height:', height);
-				setHeights((prevHeights) => {
-					const newHeights = [...prevHeights];
-					newHeights[index] = height;
-					return newHeights;
-				});
-			};
-		});
-	};
-
-	// 组件挂载后计算图片高度
+	const gridContainer = useRef(null);
 	useEffect(() => {
-		calculateHeights();
-	}, [items]);
-
+		const calcRows = () => {
+			const gridContainerNode = gridContainer.current;
+			if (gridContainerNode === null) return;
+			const items = (gridContainerNode as HTMLDivElement).querySelectorAll(
+				'.item',
+			);
+			// 获取当前列数
+			const cols =
+				getComputedStyle(gridContainerNode).gridTemplateColumns.split(
+					' ',
+				).length;
+			items.forEach((item, index) => {
+				// 给需要上下间隔的元素增加上间隔（每列第一个元素无需上间隔）
+				const gapRows = index >= cols ? 8 : 0;
+				// 根据元素高度设置元素的需占行数
+				const rows = Math.ceil(item.clientHeight / 2) + gapRows;
+				(item as HTMLDivElement).style.gridRowEnd = `span ${rows}`;
+			});
+		};
+		// 给每个元素模拟随机高度
+		window.addEventListener('load', () => {
+			const gridContainerNode = gridContainer.current;
+			if (gridContainerNode === null) return;
+			const items = (gridContainerNode as HTMLDivElement).querySelectorAll(
+				'.item',
+			);
+			items.forEach((item) => {
+				item.style.height = `${Math.floor(Math.random() * 200) + 100}px`;
+			});
+		});
+		window.addEventListener('resize', calcRows);
+		window.addEventListener('load', calcRows);
+	}, [gridContainer.current]);
 	return (
-		<div className={style.gridContainer}>
+		<div className={style.gridContainer} ref={gridContainer}>
 			{shuffleArray(items)?.map((image: UnsplashImage, index: number) => {
-				console.log('✅ zhuling ~ image:', image);
+				console.log('✅ zhuling ~  image:', image);
 
 				return (
-					<div
-						key={`${image?.id}${index}`}
-						className={style.item}
-						style={{
-							gridRowEnd: `span ${Math.ceil(heights[index] / 10) || 1}`, // 计算跨越的行数
-						}}>
-						<img
-							src={image.urls.full}
-							alt={`Image ${index}`}
-							style={{width: '100%', display: 'block'}}
-						/>
+					<div key={`${image?.id}${index}`} className={style.item}>
+						<img src={image.urls.full} alt={`Image ${index}`} />
 					</div>
 				);
 			})}
