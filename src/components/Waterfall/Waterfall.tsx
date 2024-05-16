@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import type {ReactNode} from 'react';
 import style from './style/index.module.less';
 import {fetchRandomImage} from '../../api';
@@ -43,9 +43,35 @@ const columnTypeRender = (options: WaterfallProps) => {
 
 const flexTypeRender = (options: WaterfallProps) => {
 	const {items = [], maxColumns} = options;
+	const [newMaxColumns, setNewMaxColumns] = useState(maxColumns ?? 3);
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth < 800) {
+				setNewMaxColumns(3);
+			} else if (window.innerWidth < 1000) {
+				setNewMaxColumns(4);
+			} else if (window.innerWidth < 1200) {
+				setNewMaxColumns(5);
+			} else {
+				setNewMaxColumns(maxColumns ?? 5); // 默认值或者传入的值
+			}
+		};
+
+		// 监听窗口大小变化
+		window.addEventListener('resize', handleResize);
+		// 初始化
+		handleResize();
+
+		// 清除监听器
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [options.maxColumns]);
+
 	return (
 		<div className={style.flexContainer}>
-			{Array(maxColumns)
+			{Array(newMaxColumns)
 				.fill(0)
 				?.map((item, index) => {
 					return (
