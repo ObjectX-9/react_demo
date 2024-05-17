@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {IMG_DATA} from './imgData';
 export const UNSPLASH_ACCESS_KEY =
 	'-hYErx6z6tZevGWFjgXRtZQGURheNVLWeNdcU_jx0w8';
 export interface UnsplashImage {
