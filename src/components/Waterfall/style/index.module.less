@@ -35,6 +35,26 @@
 	}
 }
 
+.gridContainer {
+	display: grid;
+	grid-auto-rows: 2px;
+	grid-gap: 0 10px;
+	grid-template-columns: repeat(4, 1fr);
+	align-items: end;
+
+	.item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #f8f8fa;
+
+		img {
+			width: 100%; /* 图片宽度填满列宽 */
+			height: auto; /* 保持图片宽高比 */
+		}
+	}
+}
+
 /* 为了响应式设计，你可以使用媒体查询来改变列数 */
 @media (width <= 1000px) {
 	/* stylelint-disable-next-line rule-empty-line-before */

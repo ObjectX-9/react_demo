@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import type {ReactNode} from 'react';
 import style from './style/index.module.less';
 import {fetchRandomImage} from '../../api';
@@ -43,31 +43,25 @@ const columnTypeRender = (options: WaterfallProps) => {
 
 const flexTypeRender = (options: WaterfallProps) => {
 	const {items = [], maxColumns} = options;
-	const [newMaxColumns, setNewMaxColumns] = useState(maxColumns ?? 3);
-
+	const [newMaxColumns, setNewMaxColumns] = useState(maxColumns ?? 5);
 	useEffect(() => {
 		const handleResize = () => {
-			if (window.innerWidth < 800) {
+			if (window.innerWidth < 600) {
+				setNewMaxColumns(2);
+			} else if (window.innerWidth < 800) {
 				setNewMaxColumns(3);
 			} else if (window.innerWidth < 1000) {
 				setNewMaxColumns(4);
 			} else if (window.innerWidth < 1200) {
 				setNewMaxColumns(5);
-			} else {
-				setNewMaxColumns(maxColumns ?? 5); // 默认值或者传入的值
 			}
 		};
-
-		// 监听窗口大小变化
 		window.addEventListener('resize', handleResize);
-		// 初始化
-		handleResize();
-
-		// 清除监听器
+		handleResize()
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
-	}, [options.maxColumns]);
+	}, []);
 
 	return (
 		<div className={style.flexContainer}>
@@ -96,8 +90,43 @@ const flexTypeRender = (options: WaterfallProps) => {
 
 const gridTypeRender = (options: WaterfallProps) => {
 	const {items = []} = options;
+	const gridContainer = useRef(null);
+	useEffect(() => {
+		const calcRows = () => {
+			const gridContainerNode = gridContainer.current;
+			if (gridContainerNode === null) return;
+			const items = (gridContainerNode as HTMLDivElement).querySelectorAll(
+				'.item',
+			);
+			// 获取当前列数
+			const cols =
+				getComputedStyle(gridContainerNode).gridTemplateColumns.split(
+					' ',
+				).length;
+			items.forEach((item, index) => {
+				// 给需要上下间隔的元素增加上间隔（每列第一个元素无需上间隔）
+				const gapRows = index >= cols ? 8 : 0;
+				// 根据元素高度设置元素的需占行数
+				const rows = Math.ceil(item.clientHeight / 2) + gapRows;
+				(item as HTMLDivElement).style.gridRowEnd = `span ${rows}`;
+			});
+		};
+		// 给每个元素模拟随机高度
+		window.addEventListener('load', () => {
+			const gridContainerNode = gridContainer.current;
+			if (gridContainerNode === null) return;
+			const items = (gridContainerNode as HTMLDivElement).querySelectorAll(
+				'.item',
+			);
+			items.forEach((item) => {
+				item.style.height = `${Math.floor(Math.random() * 200) + 100}px`;
+			});
+		});
+		window.addEventListener('resize', calcRows);
+		window.addEventListener('load', calcRows);
+	}, [gridContainer.current]);
 	return (
-		<div className={style.container}>
+		<div className={style.gridContainer} ref={gridContainer}>
 			{shuffleArray(items)?.map((image: UnsplashImage, index: number) => {
 				console.log('✅ zhuling ~  image:', image);
 
