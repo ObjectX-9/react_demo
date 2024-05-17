@@ -4,6 +4,7 @@ import style from './style/index.module.less';
 import {fetchRandomImage} from '../../api';
 import type {UnsplashImage} from '../../api';
 import {shuffleArray} from '../../utils';
+import {WaterFall} from './waterfall';
 export interface WaterfallProps {
 	waterfallType?: 'column' | 'flex' | 'grid' | 'js';
 	/**
@@ -151,12 +152,36 @@ const gridTypeRender = (options: WaterfallProps) => {
 
 const jsTypeRender = (options: WaterfallProps) => {
 	const {items = []} = options;
+	const jsContainer = useRef<HTMLDivElement>(null);
+
+	// 获取1-400之间的任意高度
+	const getRandomHeight = (min = 1, max = 4) => {
+		return (Math.floor(Math.random() * (max - min + 1)) + min) * 100;
+	};
+
+	useEffect(() => {
+		const jsContainerNode = jsContainer.current;
+		if (jsContainerNode === null) return;
+		console.log('✅ zhuling ~ jsContainerNode:', jsContainerNode);
+
+		const itemNodes = jsContainerNode.querySelectorAll(`.${style.jsItem}`);
+		console.log('✅ zhuling ~ itemNodes:', itemNodes);
+		// 给item设置任意高度
+		for (let i = 0; i < itemNodes.length; i++) {
+			(itemNodes[i] as HTMLDivElement).style.height =
+				getRandomHeight(1, 4) + 'px';
+		}
+
+		const water = new WaterFall(jsContainerNode, {gap: 10});
+		water.layout();
+	}, [items]); // Add items as a dependency to rerun when items change
+
 	return (
-		<div className={style.container}>
+		<div className={style.jsContainer} ref={jsContainer}>
 			{shuffleArray(items)?.map((image: UnsplashImage, index: number) => {
 				return (
-					<div key={`${image?.id}${index}`} className={style.item}>
-						<img src={image.urls.full} alt={`Image ${index}`} />
+					<div key={`${image?.id}${index}`} className={style.jsItem}>
+						{/* <img src={image.urls.full} alt={`Image ${index}`} /> */}
 					</div>
 				);
 			})}

@@ -55,6 +55,21 @@
 	}
 }
 
+.jsContainer {
+	position: relative;
+	.jsItem {
+		position: absolute;
+		width: 300px;
+		height: 100px;
+		background: rgb(236, 146, 10);
+		margin-bottom: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+	}
+}
+
 /* 为了响应式设计，你可以使用媒体查询来改变列数 */
 @media (width <= 1000px) {
 	/* stylelint-disable-next-line rule-empty-line-before */

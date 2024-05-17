@@ -38,6 +38,6 @@ export const GridWaterfall: Story = {
 // js封装方案实现瀑布流
 export const JsWaterfall: Story = {
 	args: {
-		waterfallType: 'grid',
+		waterfallType: 'js',
 	},
 };
