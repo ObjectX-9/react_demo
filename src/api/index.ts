@@ -108,7 +108,7 @@ interface I_ImgRes {
  * @returns
  */
 export const fetchRandomImage = async (imgNums: number) => {
-	return IMG_DATA;
+	// return IMG_DATA;
 	// eslint-disable-next-line no-unreachable
 	try {
 		const res: I_ImgRes = await axios.get(

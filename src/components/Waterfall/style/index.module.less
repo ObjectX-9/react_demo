@@ -57,16 +57,32 @@
 
 .jsContainer {
 	position: relative;
+	width: 900px;
+
 	.jsItem {
 		position: absolute;
-		width: 300px;
-		height: 100px;
-		background: rgb(236, 146, 10);
-		margin-bottom: 10px;
 		display: flex;
-		justify-content: center;
 		align-items: center;
+		justify-content: center;
+		width: 200px;
+		margin-bottom: 10px;
 		overflow: hidden;
+		color: white;
+		font-size: 18px;
+		background: rgb(236 146 10);
+		transition: all 0.1s;
+
+		.jsTag {
+			position: absolute;
+			top: 2px;
+			left: 2px;
+			color: white;
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+		}
 	}
 }
 

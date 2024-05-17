@@ -4,7 +4,7 @@ import style from './style/index.module.less';
 import {fetchRandomImage} from '../../api';
 import type {UnsplashImage} from '../../api';
 import {shuffleArray} from '../../utils';
-import {WaterFall} from './waterfall';
+import {WaterFall} from './waterfallClass';
 export interface WaterfallProps {
 	waterfallType?: 'column' | 'flex' | 'grid' | 'js';
 	/**
@@ -151,6 +151,8 @@ const gridTypeRender = (options: WaterfallProps) => {
 };
 
 const jsTypeRender = (options: WaterfallProps) => {
+	let count = 0;
+	let loading = false;
 	const {items = []} = options;
 	const jsContainer = useRef<HTMLDivElement>(null);
 
@@ -159,6 +161,57 @@ const jsTypeRender = (options: WaterfallProps) => {
 		return (Math.floor(Math.random() * (max - min + 1)) + min) * 100;
 	};
 
+	// 模拟异步请求数据
+	async function getData(num = 5) {
+		console.log('✅ ~ 请求数据num:', num);
+		const jsContainerNode = jsContainer.current;
+		if (jsContainerNode === null) return;
+
+		return await new Promise((resolve, reject) => {
+			setTimeout(() => {
+				const fragment = document.createDocumentFragment();
+				for (let i = 0; i < num; i++) {
+					const div = document.createElement('div');
+					const numDiv = document.createElement('div');
+					div.className = `${style.jsItem}`;
+					numDiv.className = 'num';
+					numDiv.textContent = `${count + 1}`;
+					count++;
+					div.appendChild(numDiv);
+					div.style.height = getRandomHeight(4, 1) + 'px';
+					fragment.appendChild(div);
+				}
+				jsContainerNode.appendChild(fragment);
+				resolve('success');
+			}, 1000);
+		});
+	}
+
+	// 触底增加数据
+	const handScorllAddData = async () => {
+		const scrollTop = document.documentElement.scrollTop;
+		const clientHeight = document.documentElement.clientHeight;
+		const scrollHeight = document.body.scrollHeight;
+		const buffer = 50; // 缓冲区距离
+		console.log(
+			`Scroll Top: ${scrollTop}, Client Height: ${clientHeight}, Scroll Height: ${scrollHeight}`,
+		);
+
+		if (scrollTop + clientHeight >= scrollHeight - buffer && !loading) {
+			loading = true;
+			console.log('触底，开始加载数据...');
+			await getData(5);
+			loading = false;
+			console.log('数据加载完成');
+		}
+	};
+
+	// 先获取20条数据
+	useEffect(() => {
+		getData(20);
+	}, []);
+
+	// 渲染绘制
 	useEffect(() => {
 		const jsContainerNode = jsContainer.current;
 		if (jsContainerNode === null) return;
@@ -166,6 +219,7 @@ const jsTypeRender = (options: WaterfallProps) => {
 
 		const itemNodes = jsContainerNode.querySelectorAll(`.${style.jsItem}`);
 		console.log('✅ zhuling ~ itemNodes:', itemNodes);
+
 		// 给item设置任意高度
 		for (let i = 0; i < itemNodes.length; i++) {
 			(itemNodes[i] as HTMLDivElement).style.height =
@@ -174,19 +228,23 @@ const jsTypeRender = (options: WaterfallProps) => {
 
 		const water = new WaterFall(jsContainerNode, {gap: 10});
 		water.layout();
-	}, [items]); // Add items as a dependency to rerun when items change
+	}, [items]);
 
-	return (
-		<div className={style.jsContainer} ref={jsContainer}>
-			{shuffleArray(items)?.map((image: UnsplashImage, index: number) => {
-				return (
-					<div key={`${image?.id}${index}`} className={style.jsItem}>
-						{/* <img src={image.urls.full} alt={`Image ${index}`} /> */}
-					</div>
-				);
-			})}
-		</div>
-	);
+	// 触底增加
+	useEffect(() => {
+		const onScroll = () => {
+			console.log('滚动事件触发');
+			handScorllAddData();
+		};
+
+		window.addEventListener('scroll', onScroll);
+
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+		};
+	}, []);
+
+	return <div className={style.jsContainer} ref={jsContainer}></div>;
 };
 
 interface GetRenderFunc {

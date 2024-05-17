@@ -5,7 +5,7 @@ const meta = {
 	title: '通用/Waterfall瀑布流',
 	component: Waterfall,
 	parameters: {
-		layout: 'centered',
+		// layout: 'centered',
 	},
 	tags: ['autodocs'],
 	argTypes: {},
