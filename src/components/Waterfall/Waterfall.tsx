@@ -161,6 +161,14 @@ const jsTypeRender = (options: WaterfallProps) => {
 		return (Math.floor(Math.random() * (max - min + 1)) + min) * 100;
 	};
 
+	// 生成随机的柔和颜色
+	const getRandomColor = () => {
+		const hue = Math.floor(Math.random() * 360); // 0到360度
+		const saturation = Math.floor(Math.random() * 20) + 70; // 70%到90%的饱和度
+		const lightness = Math.floor(Math.random() * 20) + 70; // 70%到90%的亮度
+		return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+	};
+
 	// 模拟异步请求数据
 	async function getData(num = 5) {
 		console.log('✅ ~ 请求数据num:', num);
@@ -179,6 +187,7 @@ const jsTypeRender = (options: WaterfallProps) => {
 					count++;
 					div.appendChild(numDiv);
 					div.style.height = getRandomHeight(4, 1) + 'px';
+					div.style.backgroundColor = getRandomColor(); // 设置随机颜色
 					fragment.appendChild(div);
 				}
 				jsContainerNode.appendChild(fragment);
