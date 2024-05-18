@@ -47,42 +47,33 @@ export class WaterFall {
 		if (this.items.length === 0) return;
 		const gap = this.gap;
 		const pageWidth = this.container?.offsetWidth || 1000;
-		console.log('✅ ~ pageWidth:', pageWidth);
 		const itemWidth = (this.items[0] as HTMLDivElement).offsetWidth;
-		console.log('✅ ~ itemWidth:', itemWidth);
 		const columns = Math.ceil(pageWidth / (itemWidth + gap)) ?? 5; // 总共有多少列
-		console.log('✅ ~ columns:', columns);
 
+		// 增量加载
 		while (this.renderIndex < this.items.length) {
 			let top, left;
 			const curItem = this.items[this.renderIndex] as HTMLDivElement;
-			console.log('✅ zhuling ~ ===========>:');
+			const curImgItem = curItem.children[0] as HTMLImageElement;
+			// 之前插入的时候我们给item设置了默认值，这我们需要将图片高度设置给item
+			curItem.style.height = curImgItem.offsetHeight + 'px';
+			curItem.style.width = curImgItem.offsetWidth + 'px';
 			if (this.renderIndex < columns) {
 				// 第一列
 				top = 0;
 				left = (itemWidth + gap) * this.renderIndex;
-				this.heightArr.push(curItem.offsetHeight);
+				this.heightArr[this.renderIndex] = curImgItem.offsetHeight;
 			} else {
 				// 找到高度最小的一列
 				const minIndex = this.getMinIndex(this.heightArr);
 				// 属于那一列，获取第一个元素，要获取left
 				const whichColumnFirstItem = this.items[minIndex] as HTMLDivElement;
-				// 当前插入的元素
-				console.log(
-					'✅ zhuling ~  minIndex:',
-					minIndex,
-					whichColumnFirstItem.offsetHeight + gap,
-				);
-				console.log('✅ zhuling ~  heightArr213132:', this.heightArr);
 
 				top = this.heightArr[minIndex] + gap;
 				left = whichColumnFirstItem.offsetLeft;
 				// 重新计算当前插入列的高度
-				this.heightArr[minIndex] += curItem.offsetHeight + gap;
+				this.heightArr[minIndex] += curImgItem.offsetHeight + gap;
 			}
-			console.log('✅ ~ zhuling top:', top);
-			console.log('✅ ~ zhuling left:', left);
-			console.log('✅ ~ zhuling===========>:', left, top);
 
 			curItem.style.top = top + 'px';
 			curItem.style.left = left + 'px';

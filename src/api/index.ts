@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {IMG_DATA} from './imgData';
 export const UNSPLASH_ACCESS_KEY =
 	'-hYErx6z6tZevGWFjgXRtZQGURheNVLWeNdcU_jx0w8';
 export interface UnsplashImage {
@@ -107,7 +108,7 @@ interface I_ImgRes {
  * @returns
  */
 export const fetchRandomImage = async (imgNums: number) => {
-	// return IMG_DATA;
+	return IMG_DATA;
 	// eslint-disable-next-line no-unreachable
 	try {
 		const res: I_ImgRes = await axios.get(

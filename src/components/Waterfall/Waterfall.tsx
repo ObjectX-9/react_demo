@@ -30,7 +30,7 @@ const columnTypeRender = (options: WaterfallProps) => {
 	return (
 		<div className={style.container}>
 			{shuffleArray(items)?.map((image: UnsplashImage, index: number) => {
-				console.log('✅ zhuling ~  image:', image);
+				console.log('✅  ~  image:', image);
 
 				return (
 					<div key={`${image?.id}${index}`} className={style.item}>
@@ -45,18 +45,18 @@ const columnTypeRender = (options: WaterfallProps) => {
 const flexTypeRender = (options: WaterfallProps) => {
 	const {items = [], maxColumns} = options;
 	const [newMaxColumns, setNewMaxColumns] = useState(maxColumns ?? 5);
+	const handleResize = () => {
+		if (window.innerWidth < 600) {
+			setNewMaxColumns(2);
+		} else if (window.innerWidth < 800) {
+			setNewMaxColumns(3);
+		} else if (window.innerWidth < 1000) {
+			setNewMaxColumns(4);
+		} else if (window.innerWidth < 1200) {
+			setNewMaxColumns(5);
+		}
+	};
 	useEffect(() => {
-		const handleResize = () => {
-			if (window.innerWidth < 600) {
-				setNewMaxColumns(2);
-			} else if (window.innerWidth < 800) {
-				setNewMaxColumns(3);
-			} else if (window.innerWidth < 1000) {
-				setNewMaxColumns(4);
-			} else if (window.innerWidth < 1200) {
-				setNewMaxColumns(5);
-			}
-		};
 		window.addEventListener('resize', handleResize);
 		handleResize();
 		return () => {
@@ -151,7 +151,6 @@ const gridTypeRender = (options: WaterfallProps) => {
 };
 
 const jsTypeRender = (options: WaterfallProps) => {
-	let count = 0;
 	let loading = false;
 	const {items = []} = options;
 	const jsContainer = useRef<HTMLDivElement>(null);
@@ -174,26 +173,27 @@ const jsTypeRender = (options: WaterfallProps) => {
 		console.log('✅ ~ 请求数据num:', num);
 		const jsContainerNode = jsContainer.current;
 		if (jsContainerNode === null) return;
-
-		return await new Promise((resolve, reject) => {
-			setTimeout(() => {
+		const images = (await fetchRandomImage(num)) as UnsplashImage[];
+		for (let i = 0; i < images.length; i++) {
+			const div = document.createElement('div');
+			div.className = `${style.jsItem}`;
+			const img = new Image();
+			img.src = images[i].urls.full;
+			// 等待图片加载完成，将图片依次插入到容器中
+			img.onload = () => {
 				const fragment = document.createDocumentFragment();
-				for (let i = 0; i < num; i++) {
-					const div = document.createElement('div');
-					const numDiv = document.createElement('div');
-					div.className = `${style.jsItem}`;
-					numDiv.className = 'num';
-					numDiv.textContent = `${count + 1}`;
-					count++;
-					div.appendChild(numDiv);
-					div.style.height = getRandomHeight(4, 1) + 'px';
-					div.style.backgroundColor = getRandomColor(); // 设置随机颜色
-					fragment.appendChild(div);
-				}
+				div.className = `${style.jsItem}`;
+				div.style.height = getRandomHeight(4, 1) + 'px';
+				div.style.backgroundColor = getRandomColor(); // 设置随机颜色
+				div.style.backgroundColor = getRandomColor(); // 设置随机颜色
+				div.appendChild(img);
+				fragment.appendChild(div);
 				jsContainerNode.appendChild(fragment);
-				resolve('success');
-			}, 1000);
-		});
+			};
+			img.onerror = () => {
+				console.error('Image failed to load');
+			};
+		}
 	}
 
 	// 触底增加数据
@@ -224,17 +224,6 @@ const jsTypeRender = (options: WaterfallProps) => {
 	useEffect(() => {
 		const jsContainerNode = jsContainer.current;
 		if (jsContainerNode === null) return;
-		console.log('✅ zhuling ~ jsContainerNode:', jsContainerNode);
-
-		const itemNodes = jsContainerNode.querySelectorAll(`.${style.jsItem}`);
-		console.log('✅ zhuling ~ itemNodes:', itemNodes);
-
-		// 给item设置任意高度
-		for (let i = 0; i < itemNodes.length; i++) {
-			(itemNodes[i] as HTMLDivElement).style.height =
-				getRandomHeight(1, 4) + 'px';
-		}
-
 		const water = new WaterFall(jsContainerNode, {gap: 10});
 		water.layout();
 	}, [items]);
