@@ -18,6 +18,10 @@ type Story = StoryObj<typeof meta>;
 export const UncertainHeight: Story = {
 	args: {
 		virtualListType: 'uncertainHeight',
+		listWidth: 400,
+		listHeight: 600,
+		itemHeight: 50,
+		itemSumCount: 1000,
 	},
 };
 
