@@ -342,7 +342,7 @@ interface DynamicChildItemProps {
 const DynamicChildItem = (options: DynamicChildItemProps) => {
 	const {itemStyle, getChildItem, onSizeChange, childIndex} = options;
 	const childRef = useRef(null);
-	const resizeObserverRef = useRef(null);
+	const resizeObserverRef = useRef<ResizeObserver | null>(null);
 
 	useEffect(() => {
 		const domNode = childRef.current;
@@ -470,7 +470,7 @@ const dynamicHeightRender = ({
 		const {bufferStartIndex, bufferEndIndex} = getChildShowRange(scrollTop);
 		for (let i = bufferStartIndex; i <= bufferEndIndex; i++) {
 			const item = getItemMetaData(i);
-			const itemStyle = {
+			const itemStyle: CSSProperties = {
 				position: 'absolute',
 				height: item.height,
 				width: '100%',
@@ -478,7 +478,7 @@ const dynamicHeightRender = ({
 			};
 			items.push(
 				<DynamicChildItem
-					key={i}
+					key={`${i}${item.topOffset}`}
 					childIndex={i}
 					getChildItem={getOneChildItem}
 					onSizeChange={sizeChangeHandle}
@@ -495,10 +495,12 @@ const dynamicHeightRender = ({
 	console.log('✅ ~ needUpdate:', needUpdate);
 
 	useEffect(() => {
-		const container = containerRef.current;
+		if (!containerRef.current) return;
+		const container = containerRef.current as HTMLDivElement;
 		if (container) {
-			const handleScroll = (event) => {
-				setScrollTop(event.target.scrollTop);
+			const handleScroll: EventListener = (evt) => {
+				const event = evt as UIEvent;
+				setScrollTop((event.target as HTMLElement).scrollTop);
 			};
 			container.addEventListener('scroll', handleScroll);
 			return () => {
