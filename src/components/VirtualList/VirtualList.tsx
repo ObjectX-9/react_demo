@@ -111,10 +111,10 @@ const fixedHeightRender = (options: VirtualListProps) => {
 		// 可视区能展示的元素的最大个数
 		const numVisible = Math.ceil(listHeight / itemHeight);
 		// 下缓冲区结束索引
-		const endIndex = Math.min(itemSumCount, startIndex + numVisible + 2);
+		const finialEndIndex = Math.min(itemSumCount, startIndex + numVisible + 2);
 		const items = [];
 		// 根据上面计算的索引值，不断添加元素给container
-		for (let i = finialStartIndex; i < endIndex; i++) {
+		for (let i = finialStartIndex; i < finialEndIndex; i++) {
 			items.push(
 				ChildItem({
 					childHeight: itemHeight,
@@ -135,7 +135,7 @@ const fixedHeightRender = (options: VirtualListProps) => {
 			className={style.fixedHeightContainer}
 			style={customContainerStyle}
 			onScroll={scrollHandle}>
-			<div className={style.customContainer} style={contentStyle}>
+			<div className={style.contentContainer} style={contentStyle}>
 				{getCurShowChild(options)}
 			</div>
 		</div>
@@ -272,6 +272,8 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 			};
 			items.push(<ChildItem key={i} childIndex={i} itemStyle={itemStyle} />);
 		}
+		console.log('✅ ~ measuredData:', measuredData);
+
 		return items;
 	};
 
@@ -292,7 +294,7 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 	const [scrollTop, setScrollTop] = useState<number>(0);
 
 	useEffect(() => {
-		const container = document.querySelector('.fixedHeightContainer');
+		const container = document.querySelector('.uncertainHeightContainer');
 		if (container) {
 			const handleScroll = (event: Event) => {
 				const target = event.target as HTMLElement;
@@ -308,8 +310,8 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 	return (
 		<div className='mainContainer'>
 			<div className='srcollNum'>已经滚动了：{Math.floor(scrollTop)}</div>
-			<div className='fixedHeightContainer' style={customContainerStyle}>
-				<div className='customContainer' style={contentStyle}>
+			<div className='uncertainHeightContainer' style={customContainerStyle}>
+				<div className='contentContainer' style={contentStyle}>
 					{getCurShowChild(options, scrollTop)}
 				</div>
 			</div>
@@ -391,6 +393,7 @@ const dynamicHeightRender = ({
 			offset += measuredDataMap[i].height;
 		}
 		domNode.style.height = height + 'px';
+		// 触发列表的一次更新
 		setNeedUpdate(true);
 	};
 
@@ -503,6 +506,7 @@ const dynamicHeightRender = ({
 	const containerRef = useRef(null);
 	const [scrollTop, setScrollTop] = useState(0);
 	const [needUpdate, setNeedUpdate] = useState(false);
+	console.log('✅ ~ needUpdate:', needUpdate);
 
 	useEffect(() => {
 		if (!containerRef.current) return;
