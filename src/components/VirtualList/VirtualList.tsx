@@ -26,6 +26,10 @@ export interface VirtualListProps {
 	 * 虚拟列表宽度
 	 */
 	listWidth?: number;
+	/**
+	 * 缓冲区大小
+	 */
+	bufferNum?: number;
 }
 
 interface GetRenderFunc {
@@ -40,6 +44,7 @@ interface ChildItemProps {
 	childHeight?: number;
 	itemStyle?: CSSProperties;
 }
+
 // 子项
 const ChildItem = (options: ChildItemProps) => {
 	const {childHeight = 50, childIndex, itemStyle} = options;
@@ -149,9 +154,6 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 			return itemHeight + Math.round(Math.random() * itemHeight);
 		}),
 	);
-
-	console.log('✅ ~ itemHeightListRef:', itemHeightListRef.current);
-
 	const getItemHeightByIndex = (index: number) =>
 		itemHeightListRef.current[index];
 
@@ -160,6 +162,7 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 		LastMeasuredItemIndex: -1,
 	};
 
+	// 预测高度：已经记录的总高度【已经展示过的项相加】+未记录的总高度【未展示过的项*默认高度计算】
 	const estimatedHeight = (defaultItemHeight = 50, itemSumCount: number) => {
 		let measuredHeight = 0;
 		const {measuredDataMap, LastMeasuredItemIndex} = measuredData;
@@ -174,14 +177,18 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 		return totalEstimatedHeight;
 	};
 
+	// LastMeasuredItemIndex是已经被记录的滚动到的最大索引，如果是大于LastMeasuredItemIndex，
+	// 则可以通过一项一项的相加，加到index就是当前项的最大偏移值
 	const getItemMetaData = (index: number) => {
 		const {measuredDataMap, LastMeasuredItemIndex} = measuredData;
 		if (index > LastMeasuredItemIndex) {
 			let topOffset = 0;
+			// 先获取到最底部新增的一项的topOffset
 			if (LastMeasuredItemIndex >= 0) {
 				const lastMeasuredItem = measuredDataMap[LastMeasuredItemIndex];
 				topOffset += lastMeasuredItem.topOffset + lastMeasuredItem.height;
 			}
+			// 遍历记录，直到index
 			for (let i = LastMeasuredItemIndex + 1; i <= index; i++) {
 				const currentItemSize = getItemHeightByIndex(i);
 				measuredDataMap[i] = {height: currentItemSize, topOffset};
@@ -192,6 +199,8 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 		return measuredDataMap[index];
 	};
 
+	// 查找起始索引，从记录的数据结构中查找，第一项就是topOffset >= srcollTop
+	// 用二分法进行优化
 	const getStartIndex = (options: VirtualListProps, scrollOffset: number) => {
 		const {itemSumCount = 1000} = options;
 		let low = 0;
@@ -211,6 +220,8 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 		return low;
 	};
 
+	// 查找终止索引：通过起始item的topOffset+自定义的listHeight可以计算出当前能显示的最大偏移值maxOffset
+	// 从startItem一直遍历加上height，直到offset >= maxOffset
 	const getEndIndex = (options: VirtualListProps, startIndex: number) => {
 		const {listHeight = 600, itemSumCount = 1000} = options;
 		const startItem = getItemMetaData(startIndex);
@@ -226,16 +237,17 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 		return endIndex;
 	};
 
+	// 获取当前可现实的范围
 	const getChildShowRange = (
 		options: VirtualListProps,
 		scrollOffset: number,
 	) => {
-		const {itemSumCount = 1000} = options;
+		const {itemSumCount = 1000, bufferNum = 4} = options;
 		const startIndex = getStartIndex(options, scrollOffset);
 		const endIndex = getEndIndex(options, startIndex);
 		return {
-			bufferStartIndex: Math.max(0, startIndex - 2),
-			bufferEndIndex: Math.min(itemSumCount - 1, endIndex + 2),
+			bufferStartIndex: Math.max(0, startIndex - bufferNum),
+			bufferEndIndex: Math.min(itemSumCount - 1, endIndex + bufferNum),
 			startIndex,
 			endIndex,
 		};
@@ -249,7 +261,6 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 		);
 		for (let i = bufferStartIndex; i <= bufferEndIndex; i++) {
 			const item = getItemMetaData(i);
-			console.log('✅ ~ item:', item);
 			const itemStyle: CSSProperties = {
 				position: 'absolute',
 				height: item.height,
@@ -303,16 +314,236 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 	);
 };
 
+const getRandomHeightItem = (() => {
+	let items: ReactNode[] | null = null;
+	return () => {
+		if (items) return items;
+		items = [];
+		const itemCount = 1000;
+		for (let i = 0; i < itemCount; i++) {
+			const height = 30 + Math.floor(Math.random() * 30);
+			const style = {
+				height,
+				width: '100%',
+			};
+			items.push(<ChildItem key={i} childIndex={i} itemStyle={style} />);
+		}
+		return items;
+	};
+})();
+
+interface DynamicChildItemProps {
+	key: string;
+	onSizeChange: (index: number, domNode: HTMLDivElement) => void;
+	getChildItem: (index: number) => ReactNode;
+	childIndex: number;
+	itemStyle?: CSSProperties;
+}
+const DynamicChildItem = (options: DynamicChildItemProps) => {
+	const {itemStyle, getChildItem, onSizeChange, childIndex} = options;
+	const childRef = useRef(null);
+	const resizeObserverRef = useRef(null);
+
+	useEffect(() => {
+		const domNode = childRef.current;
+		if (domNode) {
+			if (!resizeObserverRef.current) {
+				resizeObserverRef.current = new ResizeObserver(() => {
+					onSizeChange(childIndex, domNode);
+				});
+			}
+			resizeObserverRef.current.observe(domNode);
+		}
+		return () => {
+			if (resizeObserverRef.current && domNode) {
+				resizeObserverRef.current.unobserve(domNode);
+			}
+		};
+	}, [childIndex, onSizeChange]);
+
+	return (
+		<div ref={childRef} style={itemStyle}>
+			{getChildItem(childIndex)}
+		</div>
+	);
+};
+
+const getOneChildItem = (index: number) => getRandomHeightItem()[index];
+const measuredData: MeasuredDataList = {
+	measuredDataMap: [],
+	LastMeasuredItemIndex: -1,
+};
+const dynamicHeightRender = ({
+	itemSumCount = 1000,
+	listWidth = 400,
+	listHeight = 600,
+	itemHeight = 50,
+}) => {
+	const sizeChangeHandle = (index: number, domNode: HTMLDivElement) => {
+		const height = (domNode.children[0] as HTMLDivElement).offsetHeight;
+		console.log('✅ ~ domNode:', domNode, height);
+		const {measuredDataMap, LastMeasuredItemIndex} = measuredData;
+		measuredDataMap[index].height = height;
+		let offset = 0;
+		for (let i = 0; i <= LastMeasuredItemIndex; i++) {
+			measuredDataMap[i].topOffset = offset;
+			offset += measuredDataMap[i].height;
+		}
+		domNode.style.height = height + 'px';
+		setNeedUpdate(true);
+	};
+
+	const estimatedHeight = (defaultItemHeight: number, itemSumCount: number) => {
+		let measuredHeight = 0;
+		const {measuredDataMap, LastMeasuredItemIndex} = measuredData;
+		if (LastMeasuredItemIndex >= 0) {
+			measuredHeight =
+				measuredDataMap[LastMeasuredItemIndex].topOffset +
+				measuredDataMap[LastMeasuredItemIndex].height;
+		}
+		return (
+			measuredHeight +
+			(itemSumCount - LastMeasuredItemIndex - 1) * defaultItemHeight
+		);
+	};
+
+	const getItemMetaData = (index: number) => {
+		const {measuredDataMap, LastMeasuredItemIndex} = measuredData;
+		if (index > LastMeasuredItemIndex) {
+			let topOffset =
+				LastMeasuredItemIndex >= 0
+					? measuredDataMap[LastMeasuredItemIndex].topOffset +
+						measuredDataMap[LastMeasuredItemIndex].height
+					: 0;
+			for (let i = LastMeasuredItemIndex + 1; i <= index; i++) {
+				measuredDataMap[i] = {height: 50, topOffset};
+				topOffset += 50;
+			}
+			measuredData.LastMeasuredItemIndex = index;
+		}
+		return measuredDataMap[index];
+	};
+
+	const getStartIndex = (scrollOffset: number) => {
+		let low = 0;
+		let high = itemSumCount - 1;
+		while (low <= high) {
+			const mid = Math.floor((low + high) / 2);
+			const currentOffset = getItemMetaData(mid).topOffset;
+			if (currentOffset === scrollOffset) {
+				return mid;
+			} else if (currentOffset < scrollOffset) {
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+		}
+		return low;
+	};
+
+	const getEndIndex = (startIndex: number) => {
+		const startItem = getItemMetaData(startIndex);
+		const maxOffset = startItem.topOffset + listHeight;
+		let offset = startItem.topOffset + startItem.height;
+		let endIndex = startIndex;
+		while (offset <= maxOffset && endIndex < itemSumCount - 1) {
+			endIndex++;
+			offset += getItemMetaData(endIndex).height;
+		}
+		return endIndex;
+	};
+
+	const getChildShowRange = (scrollOffset: number) => {
+		const bufferNum = 4;
+		const startIndex = getStartIndex(scrollOffset);
+		const endIndex = getEndIndex(startIndex);
+		return {
+			bufferStartIndex: Math.max(0, startIndex - bufferNum),
+			bufferEndIndex: Math.min(itemSumCount - 1, endIndex + bufferNum),
+			startIndex,
+			endIndex,
+		};
+	};
+
+	const getCurShowChild = (scrollTop: number) => {
+		const items = [];
+		const {bufferStartIndex, bufferEndIndex} = getChildShowRange(scrollTop);
+		for (let i = bufferStartIndex; i <= bufferEndIndex; i++) {
+			const item = getItemMetaData(i);
+			const itemStyle = {
+				position: 'absolute',
+				height: item.height,
+				width: '100%',
+				top: item.topOffset,
+			};
+			items.push(
+				<DynamicChildItem
+					key={i}
+					childIndex={i}
+					getChildItem={getOneChildItem}
+					onSizeChange={sizeChangeHandle}
+					itemStyle={itemStyle}
+				/>,
+			);
+		}
+		return items;
+	};
+
+	const containerRef = useRef(null);
+	const [scrollTop, setScrollTop] = useState(0);
+	const [needUpdate, setNeedUpdate] = useState(false);
+	console.log('✅ ~ needUpdate:', needUpdate);
+
+	useEffect(() => {
+		const container = containerRef.current;
+		if (container) {
+			const handleScroll = (event) => {
+				setScrollTop(event.target.scrollTop);
+			};
+			container.addEventListener('scroll', handleScroll);
+			return () => {
+				container.removeEventListener('scroll', handleScroll);
+			};
+		}
+	}, []);
+
+	return (
+		<div className='mainContainer'>
+			<div className='scrollNum'>已经滚动了：{Math.floor(scrollTop)}</div>
+			<div
+				className='dynamicHeightContainer'
+				ref={containerRef}
+				style={{
+					position: 'relative',
+					width: listWidth,
+					height: listHeight,
+					overflow: 'auto',
+					boxSizing: 'border-box',
+				}}>
+				<div
+					className='contentContainer'
+					style={{
+						height: estimatedHeight(itemHeight, itemSumCount),
+						width: '100%',
+						boxSizing: 'border-box',
+					}}>
+					{getCurShowChild(scrollTop)}
+				</div>
+			</div>
+		</div>
+	);
+};
+
 // render函数映射
 const getRenderObj: GetRenderFunc = {
 	'uncertainHeight': uncertainHeightRender,
 	'fixedHeight': fixedHeightRender,
-	'dynamicHeight': () => <></>,
+	'dynamicHeight': dynamicHeightRender,
 	'imgList': () => <></>,
 };
 
 /**
- * 瀑布流组件
+ * 虚拟列表组件
  */
 export const VirtualList = ({
 	virtualListType = 'fixedHeight',
@@ -320,6 +551,7 @@ export const VirtualList = ({
 	itemSumCount,
 	listWidth,
 	listHeight,
+	bufferNum,
 	...props
 }: VirtualListProps) => {
 	return getRenderObj[virtualListType]({

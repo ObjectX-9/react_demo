@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react';
 import {VirtualList} from './VirtualList';
 
 const meta = {
-	title: '通用/虚拟列表VirtualList',
+	title: '通用/VirtualList虚拟列表',
 	component: VirtualList,
 	parameters: {
 		layout: 'centered',
@@ -20,6 +20,7 @@ export const UncertainHeight: Story = {
 		virtualListType: 'uncertainHeight',
 		listWidth: 400,
 		listHeight: 600,
+		// 预测高度
 		itemHeight: 50,
 		itemSumCount: 1000,
 	},
@@ -31,6 +32,7 @@ export const FixedHeight: Story = {
 		virtualListType: 'fixedHeight',
 		listWidth: 400,
 		listHeight: 600,
+		// 实际高度
 		itemHeight: 50,
 		itemSumCount: 1000,
 	},
@@ -40,6 +42,11 @@ export const FixedHeight: Story = {
 export const DynamicHeight: Story = {
 	args: {
 		virtualListType: 'dynamicHeight',
+		listWidth: 400,
+		listHeight: 600,
+		// 预测高度
+		itemHeight: 50,
+		itemSumCount: 1000,
 	},
 };
 
@@ -47,5 +54,8 @@ export const DynamicHeight: Story = {
 export const ImgList: Story = {
 	args: {
 		virtualListType: 'imgList',
+		listWidth: 400,
+		listHeight: 600,
+		itemSumCount: 1000,
 	},
 };
