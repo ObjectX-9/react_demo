@@ -503,7 +503,6 @@ const dynamicHeightRender = ({
 	const containerRef = useRef(null);
 	const [scrollTop, setScrollTop] = useState(0);
 	const [needUpdate, setNeedUpdate] = useState(false);
-	console.log('✅ ~ needUpdate:', needUpdate);
 
 	useEffect(() => {
 		if (!containerRef.current) return;
