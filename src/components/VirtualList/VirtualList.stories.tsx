@@ -49,13 +49,3 @@ export const DynamicHeight: Story = {
 		itemSumCount: 1000,
 	},
 };
-
-// 图片列表
-export const ImgList: Story = {
-	args: {
-		virtualListType: 'imgList',
-		listWidth: 400,
-		listHeight: 600,
-		itemSumCount: 1000,
-	},
-};

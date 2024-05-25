@@ -5,11 +5,7 @@ export interface VirtualListProps {
 	/**
 	 * 虚拟列表类型
 	 */
-	virtualListType?:
-		| 'uncertainHeight'
-		| 'fixedHeight'
-		| 'dynamicHeight'
-		| 'imgList';
+	virtualListType?: 'uncertainHeight' | 'fixedHeight' | 'dynamicHeight';
 	/**
 	 * 列表项高度【定高使用】
 	 */
@@ -36,12 +32,31 @@ interface GetRenderFunc {
 	uncertainHeight: (options: VirtualListProps) => ReactNode;
 	fixedHeight: (options: VirtualListProps) => ReactNode;
 	dynamicHeight: (options: VirtualListProps) => ReactNode;
-	imgList: (options: VirtualListProps) => ReactNode;
 }
 
 interface ChildItemProps {
 	childIndex: number;
 	childHeight?: number;
+	itemStyle?: CSSProperties;
+}
+
+// 每一项的数据结构
+interface MeasuredDataMap {
+	height: number;
+	topOffset: number;
+}
+
+// 缓存映射的数据结构
+interface MeasuredDataList {
+	measuredDataMap: MeasuredDataMap[];
+	LastMeasuredItemIndex: number;
+}
+
+interface DynamicChildItemProps {
+	key: string;
+	onSizeChange: (index: number, domNode: HTMLDivElement) => void;
+	getChildItem: (index: number) => ReactNode;
+	childIndex: number;
 	itemStyle?: CSSProperties;
 }
 
@@ -126,18 +141,6 @@ const fixedHeightRender = (options: VirtualListProps) => {
 		</div>
 	);
 };
-
-// 每一项的数据结构
-interface MeasuredDataMap {
-	height: number;
-	topOffset: number;
-}
-
-// 缓存映射的数据结构
-interface MeasuredDataList {
-	measuredDataMap: MeasuredDataMap[];
-	LastMeasuredItemIndex: number;
-}
 
 // 不定高
 const uncertainHeightRender = (options: VirtualListProps) => {
@@ -314,6 +317,7 @@ const uncertainHeightRender = (options: VirtualListProps) => {
 	);
 };
 
+// 获取任意高度的item
 const getRandomHeightItem = (() => {
 	let items: ReactNode[] | null = null;
 	return () => {
@@ -332,13 +336,7 @@ const getRandomHeightItem = (() => {
 	};
 })();
 
-interface DynamicChildItemProps {
-	key: string;
-	onSizeChange: (index: number, domNode: HTMLDivElement) => void;
-	getChildItem: (index: number) => ReactNode;
-	childIndex: number;
-	itemStyle?: CSSProperties;
-}
+// 动态获取子集
 const DynamicChildItem = (options: DynamicChildItemProps) => {
 	const {itemStyle, getChildItem, onSizeChange, childIndex} = options;
 	const childRef = useRef(null);
@@ -369,22 +367,25 @@ const DynamicChildItem = (options: DynamicChildItemProps) => {
 };
 
 const getOneChildItem = (index: number) => getRandomHeightItem()[index];
+
 const measuredData: MeasuredDataList = {
 	measuredDataMap: [],
 	LastMeasuredItemIndex: -1,
 };
+// 动态高度
 const dynamicHeightRender = ({
 	itemSumCount = 1000,
 	listWidth = 400,
 	listHeight = 600,
 	itemHeight = 50,
 }) => {
+	// 监听节点尺寸变化，更新measuredDataMap，触发重新渲染
 	const sizeChangeHandle = (index: number, domNode: HTMLDivElement) => {
 		const height = (domNode.children[0] as HTMLDivElement).offsetHeight;
-		console.log('✅ ~ domNode:', domNode, height);
 		const {measuredDataMap, LastMeasuredItemIndex} = measuredData;
 		measuredDataMap[index].height = height;
 		let offset = 0;
+		// 重新计算偏移值
 		for (let i = 0; i <= LastMeasuredItemIndex; i++) {
 			measuredDataMap[i].topOffset = offset;
 			offset += measuredDataMap[i].height;
@@ -393,22 +394,27 @@ const dynamicHeightRender = ({
 		setNeedUpdate(true);
 	};
 
+	// 预测高度
 	const estimatedHeight = (defaultItemHeight: number, itemSumCount: number) => {
 		let measuredHeight = 0;
 		const {measuredDataMap, LastMeasuredItemIndex} = measuredData;
+		// 计算已经记录的高度，最后一项的top+height
 		if (LastMeasuredItemIndex >= 0) {
 			measuredHeight =
 				measuredDataMap[LastMeasuredItemIndex].topOffset +
 				measuredDataMap[LastMeasuredItemIndex].height;
 		}
+		// [已记录的高度] + [预测高度 * 剩余项]
 		return (
 			measuredHeight +
 			(itemSumCount - LastMeasuredItemIndex - 1) * defaultItemHeight
 		);
 	};
 
+	// 获取每一项的元数据
 	const getItemMetaData = (index: number) => {
 		const {measuredDataMap, LastMeasuredItemIndex} = measuredData;
+		// 如果index大于当前记录的最大值，挨个计算到index去，用top+height一个一个计算
 		if (index > LastMeasuredItemIndex) {
 			let topOffset =
 				LastMeasuredItemIndex >= 0
@@ -424,6 +430,8 @@ const dynamicHeightRender = ({
 		return measuredDataMap[index];
 	};
 
+	// 通过scrollTop滚动过的高度，topOffset >= scrollTop的就是当前展示的起始索引
+	// 用二分法优化
 	const getStartIndex = (scrollOffset: number) => {
 		let low = 0;
 		let high = itemSumCount - 1;
@@ -441,6 +449,7 @@ const dynamicHeightRender = ({
 		return low;
 	};
 
+	// 根据startIndex和 当前设置的listHeight，计算出最大偏移值maxOffset，获取item直到topOffset大于maxOffset
 	const getEndIndex = (startIndex: number) => {
 		const startItem = getItemMetaData(startIndex);
 		const maxOffset = startItem.topOffset + listHeight;
@@ -453,6 +462,7 @@ const dynamicHeightRender = ({
 		return endIndex;
 	};
 
+	// 获取渲染范围，加上缓冲区
 	const getChildShowRange = (scrollOffset: number) => {
 		const bufferNum = 4;
 		const startIndex = getStartIndex(scrollOffset);
@@ -465,6 +475,7 @@ const dynamicHeightRender = ({
 		};
 	};
 
+	// 根据当前显示范围，插入节点，节点通过getOneChildItem动态获取
 	const getCurShowChild = (scrollTop: number) => {
 		const items = [];
 		const {bufferStartIndex, bufferEndIndex} = getChildShowRange(scrollTop);
@@ -541,7 +552,6 @@ const getRenderObj: GetRenderFunc = {
 	'uncertainHeight': uncertainHeightRender,
 	'fixedHeight': fixedHeightRender,
 	'dynamicHeight': dynamicHeightRender,
-	'imgList': () => <></>,
 };
 
 /**
